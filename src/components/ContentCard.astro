@@ -14,7 +14,7 @@ interface Props {
 const { href, title, description = '', category = '', tags = [], status = 'draft', eyebrow = '' } = Astro.props;
 ---
 
-<a href={href} class="group relative flex min-h-[240px] flex-col justify-between overflow-hidden border border-line bg-panel p-5 transition hover:-translate-y-0.5 hover:border-blue hover:bg-white hover:shadow-[0_18px_42px_rgba(42,127,219,0.12)]">
+<a href={href} data-note-modal class="group relative flex min-h-[240px] flex-col justify-between overflow-hidden border border-line bg-panel p-5 transition hover:-translate-y-0.5 hover:border-blue hover:bg-white hover:shadow-[0_18px_42px_rgba(42,127,219,0.12)]">
   <span class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue via-blue to-sun opacity-80 transition group-hover:opacity-100"></span>
   <div>
     <div class="mb-5 flex items-center justify-between gap-3">

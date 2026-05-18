@@ -50,6 +50,85 @@ const nav = [
       <footer class="mx-auto mt-20 w-[min(1120px,calc(100vw_-_32px))] border-t border-line py-8 text-sm text-muted">
         Building small brand systems in the field.
       </footer>
+      <div class="note-modal" data-note-modal-root aria-hidden="true">
+        <div class="note-modal__backdrop" data-note-modal-close></div>
+        <section class="note-modal__panel" role="dialog" aria-modal="true" aria-label="Note detail">
+          <button class="note-modal__close" type="button" data-note-modal-close aria-label="Close note">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 6 6 18"></path>
+              <path d="m6 6 12 12"></path>
+            </svg>
+          </button>
+          <div class="note-modal__content" data-note-modal-content>
+            <p class="note-modal__loading">불러오는 중입니다.</p>
+          </div>
+        </section>
+      </div>
     </div>
+    <script is:inline>
+      (() => {
+        const root = document.querySelector('[data-note-modal-root]');
+        const content = document.querySelector('[data-note-modal-content]');
+        const closeTargets = document.querySelectorAll('[data-note-modal-close]');
+        let lastFocused = null;
+        let activeController = null;
+
+        if (!root || !content) return;
+
+        function setOpen(isOpen) {
+          root.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+          document.documentElement.classList.toggle('note-modal-open', isOpen);
+          document.body.classList.toggle('note-modal-open', isOpen);
+        }
+
+        function closeModal() {
+          if (activeController) activeController.abort();
+          setOpen(false);
+          if (lastFocused instanceof HTMLElement) lastFocused.focus();
+        }
+
+        async function openModal(url, trigger) {
+          lastFocused = trigger;
+          if (activeController) activeController.abort();
+          activeController = new AbortController();
+          content.innerHTML = '<p class="note-modal__loading">불러오는 중입니다.</p>';
+          setOpen(true);
+          root.querySelector('[data-note-modal-close]')?.focus();
+
+          try {
+            const response = await fetch(url, { signal: activeController.signal });
+            if (!response.ok) throw new Error('Failed to load note');
+            const html = await response.text();
+            const page = new DOMParser().parseFromString(html, 'text/html');
+            const main = page.querySelector('main');
+            if (!main) throw new Error('Missing note content');
+            content.replaceChildren(main.cloneNode(true));
+          } catch (error) {
+            if (error?.name === 'AbortError') return;
+            window.location.href = url;
+          }
+        }
+
+        document.addEventListener('click', (event) => {
+          const link = event.target.closest?.('a[data-note-modal]');
+          if (!link) return;
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank') return;
+          const url = new URL(link.href, window.location.href);
+          if (url.origin !== window.location.origin) return;
+          event.preventDefault();
+          openModal(url.pathname, link);
+        });
+
+        closeTargets.forEach((target) => {
+          target.addEventListener('click', closeModal);
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && root.getAttribute('aria-hidden') === 'false') {
+            closeModal();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
