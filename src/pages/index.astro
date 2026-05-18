@@ -16,8 +16,8 @@ const featured = [
 ---
 
 <BaseLayout title="Socialventure Magazine" description="중소 제조 공장, 브랜드, AI, 콘텐츠 현장에서 직접 부딪히며 기록하는 아카이브입니다.">
-  <main class="mx-auto w-[min(1120px,calc(100vw_-_32px))] py-12 sm:py-20">
-    <section class="grid gap-8 border-b border-line pb-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+  <main class="mx-auto w-[min(1120px,calc(100vw_-_32px))] py-10 sm:py-16">
+    <section class="grid gap-7 border-b border-line pb-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
       <div>
         <p class="magazine-kicker mb-4 text-xs font-semibold uppercase tracking-[0.18em]">Field Notes for Small Brand Systems</p>
         <h1 class="max-w-4xl text-[clamp(3rem,14vw,9rem)] font-extrabold leading-[0.86] tracking-normal">
@@ -28,7 +28,7 @@ const featured = [
           현장에서 직접 부딪히며 기록합니다.
         </p>
       </div>
-      <div class="grid gap-6">
+      <div class="grid gap-5">
         <p class="max-w-md text-lg leading-8 text-muted">
           소셜벤처의 크리에이티브 디렉터로서 중소 제조업 현장에서 브랜드, 시스템, AI를 실험합니다.
           이곳은 그 과정에서 얻은 인사이트와 실행 기록을 공유하는 아카이브입니다.
@@ -39,30 +39,13 @@ const featured = [
       </div>
     </section>
 
-    <section class="grid gap-3 py-8 md:grid-cols-[0.95fr_1.05fr]">
-      <div class="border border-line bg-white p-5">
-        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue">For</p>
-        <div class="flex flex-wrap gap-2">
-          {['중소기업', '소상공인', '스몰브랜드', '2세 경영자', '1인기업', '현장 기반 실행가'].map((item) => (
-            <span class="border border-line bg-mist/50 px-3 py-2 text-sm font-semibold text-ink">{item}</span>
-          ))}
-        </div>
-      </div>
-      <div class="border border-blue bg-white p-5 shadow-[0_18px_44px_rgba(42,127,219,0.10)]">
-        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue">Conversation</p>
-        <p class="max-w-2xl text-lg leading-8 text-ink">
-          실제 제조업 현장, 브랜드 구축, 디지털 전환, 콘텐츠 시스템에 대해 함께 이야기하고 싶다면 연락해주세요.
-        </p>
-      </div>
+    <section class="grid grid-cols-3 gap-2 py-4">
+      <a class="flex items-baseline justify-between gap-1 border border-line bg-white px-2.5 py-3 hover:border-blue sm:gap-2 sm:px-5" href="/insights"><strong class="text-2xl text-blue sm:text-3xl">{insights.length}</strong><span class="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted sm:text-sm sm:tracking-[0.12em]">Insights</span></a>
+      <a class="flex items-baseline justify-between gap-1 border border-line bg-white px-2.5 py-3 hover:border-blue sm:gap-2 sm:px-5" href="/articles"><strong class="text-2xl text-blue sm:text-3xl">{articles.length}</strong><span class="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted sm:text-sm sm:tracking-[0.12em]">Articles</span></a>
+      <a class="flex items-baseline justify-between gap-1 border border-line bg-white px-2.5 py-3 hover:border-blue sm:gap-2 sm:px-5" href="/collections"><strong class="text-2xl text-coral sm:text-3xl">{collections.length}</strong><span class="text-[10px] font-semibold uppercase tracking-[0.08em] text-muted sm:text-sm sm:tracking-[0.12em]">Collections</span></a>
     </section>
 
-    <section class="grid gap-3 py-4 sm:grid-cols-3">
-      <a class="border border-line bg-white p-5 hover:border-blue" href="/insights"><strong class="block text-3xl text-blue">{insights.length}</strong><span class="text-sm text-muted">Insights</span></a>
-      <a class="border border-line bg-white p-5 hover:border-blue" href="/articles"><strong class="block text-3xl text-blue">{articles.length}</strong><span class="text-sm text-muted">Articles</span></a>
-      <a class="border border-line bg-white p-5 hover:border-blue" href="/collections"><strong class="block text-3xl text-coral">{collections.length}</strong><span class="text-sm text-muted">Collections</span></a>
-    </section>
-
-    <section class="mt-8">
+    <section class="mt-5">
       <div class="mb-5 flex items-end justify-between gap-4">
         <h2 class="text-4xl font-extrabold tracking-normal">Latest Notes</h2>
         <a class="text-sm font-semibold text-blue hover:text-coral" href="/search">전체 검색</a>
@@ -80,6 +63,13 @@ const featured = [
           />
         ))}
       </div>
+    </section>
+
+    <section class="mt-10 border-t border-line pt-6">
+      <p class="max-w-4xl text-base leading-7 text-muted">
+        중소기업, 소상공인, 스몰브랜드, 2세 경영자, 1인기업, 현장 기반 실행가와
+        실제 제조업 현장, 브랜드 구축, 디지털 전환, 콘텐츠 시스템에 대해 함께 이야기하고 싶습니다.
+      </p>
     </section>
   </main>
 </BaseLayout>
