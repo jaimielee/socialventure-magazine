@@ -1,0 +1,155 @@
+local_backend: true
+
+backend:
+  name: test-repo
+
+media_folder: public/uploads
+public_folder: /uploads
+
+slug:
+  encoding: unicode
+  clean_accents: false
+  sanitize_replacement: "-"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: insights
+    label: Insights
+    label_singular: Insight
+    folder: src/content/insights
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "insights/{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Description, widget: text, required: false }
+      - { name: category, label: Category, widget: string, default: "미분류" }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - label: Status
+        name: status
+        widget: select
+        default: draft
+        options: [draft, review, published]
+      - { name: coreSentence, label: "핵심 문장", widget: text }
+      - { name: originalNote, label: "원문 메모", widget: text }
+      - { name: myThought, label: "내 생각", widget: text }
+      - { name: source, label: "출처", widget: string, required: false }
+      - { name: sourceIds, label: "출처 ID", widget: list, required: false }
+      - { name: relatedNoteIds, label: "관련 메모 ID", widget: list, required: false }
+      - { name: imageGuide, label: "사진/이미지 가이드", widget: text, required: false }
+      - { name: checklist, label: "발행 체크리스트", widget: list, required: false }
+      - { name: publishPotential, label: "발행 가능성", widget: number, min: 1, max: 5, default: 3 }
+      - { name: updatedAt, label: Updated At, widget: datetime, default: "{{now}}" }
+      - { name: body, label: Body, widget: markdown, required: false }
+
+  - name: articles
+    label: Articles
+    label_singular: Article
+    folder: src/content/articles
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "articles/{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Description, widget: text, required: false }
+      - { name: category, label: Category, widget: string, default: "미분류" }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - label: Status
+        name: status
+        widget: select
+        default: draft
+        options: [draft, review, published]
+      - { name: coreSentence, label: "핵심 문장", widget: text }
+      - { name: source, label: "출처", widget: string, required: false }
+      - { name: myThought, label: "내 생각", widget: text }
+      - { name: relatedNoteIds, label: "관련 메모 ID", widget: list, required: false }
+      - { name: sourceIds, label: "출처 ID", widget: list, required: false }
+      - { name: imageGuide, label: "사진/이미지 가이드", widget: text, required: false }
+      - { name: checklist, label: "발행 체크리스트", widget: list, required: false }
+      - label: Hero Style
+        name: heroStyle
+        widget: select
+        default: text
+        options: [text, image, split]
+      - { name: readingMinutes, label: "Reading Minutes", widget: number, min: 1, default: 5 }
+      - { name: publishPotential, label: "발행 가능성", widget: number, min: 1, max: 5, default: 3 }
+      - { name: updatedAt, label: Updated At, widget: datetime, default: "{{now}}" }
+      - { name: body, label: Body, widget: markdown, required: false }
+
+  - name: collections
+    label: Collections
+    label_singular: Collection
+    folder: src/content/collections
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    preview_path: "collections/{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Description, widget: text }
+      - { name: category, label: Category, widget: string, default: "미분류" }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - label: Status
+        name: status
+        widget: select
+        default: draft
+        options: [draft, review, published]
+      - { name: insightIds, label: "Insight IDs", widget: list, required: false }
+      - { name: articleIds, label: "Article IDs", widget: list, required: false }
+      - { name: sourceIds, label: "Source IDs", widget: list, required: false }
+      - { name: imageGuide, label: "사진/이미지 가이드", widget: text, required: false }
+      - { name: publishPotential, label: "발행 가능성", widget: number, min: 1, max: 5, default: 3 }
+      - { name: updatedAt, label: Updated At, widget: datetime, default: "{{now}}" }
+      - { name: body, label: Body, widget: markdown, required: false }
+
+  - name: references
+    label: References
+    label_singular: Reference
+    folder: src/content/references
+    create: true
+    extension: mdx
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - label: Source Type
+        name: sourceType
+        widget: select
+        default: unknown
+        options: [book, article, video, podcast, lecture, website, unknown]
+      - { name: creator, label: Creator, widget: string, required: false }
+      - { name: url, label: URL, widget: string, required: false }
+      - { name: category, label: Category, widget: string, default: "미분류" }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: noteIds, label: "Note IDs", widget: list, required: false }
+      - label: Reliability
+        name: reliability
+        widget: select
+        default: unknown
+        options: [primary, secondary, personal, unknown]
+      - { name: updatedAt, label: Updated At, widget: datetime, default: "{{now}}" }
+      - { name: body, label: Body, widget: markdown, required: false }
+
+  - name: raw_notes
+    label: Raw Notes
+    label_singular: Raw Note
+    folder: src/content/raw-notes
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: category, label: Category, widget: string, default: "미분류" }
+      - { name: tags, label: Tags, widget: list, required: false }
+      - { name: source, label: Source, widget: string, required: false }
+      - { name: author, label: Author, widget: string, required: false }
+      - { name: url, label: URL, widget: string, required: false }
+      - { name: capturedAt, label: Captured At, widget: datetime, required: false }
+      - { name: body, label: Body, widget: markdown, required: false }

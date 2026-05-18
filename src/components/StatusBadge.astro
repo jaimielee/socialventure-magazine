@@ -1,0 +1,21 @@
+---
+interface Props {
+  status: 'draft' | 'review' | 'published';
+}
+const { status } = Astro.props;
+const label = {
+  draft: 'DRAFT',
+  review: 'REVIEW',
+  published: 'PUBLISHED',
+}[status];
+
+const tone = {
+  draft: 'border-line bg-mist/50 text-muted',
+  review: 'border-blue/40 bg-blue/10 text-blue',
+  published: 'border-blue/50 bg-blue/10 text-blue',
+}[status];
+---
+
+<span class={`inline-flex border px-2.5 py-1 text-[11px] font-semibold tracking-[0.14em] ${tone}`}>
+  {label}
+</span>

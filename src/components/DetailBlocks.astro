@@ -1,0 +1,58 @@
+---
+interface Props {
+  coreSentence: string;
+  source?: string;
+  myThought: string;
+  relatedNotes?: string[];
+  imageGuide?: string;
+  checklist?: string[];
+}
+
+const {
+  coreSentence,
+  source = '출처 미정',
+  myThought,
+  relatedNotes = [],
+  imageGuide = '이미지 가이드가 아직 없습니다.',
+  checklist = [],
+} = Astro.props;
+---
+
+<aside class="my-12 grid gap-3">
+  <section class="border border-blue bg-white p-5 shadow-[0_18px_44px_rgba(42,127,219,0.10)]">
+    <p class="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-blue">Core Sentence</p>
+    <blockquote class="m-0 font-serif text-3xl leading-tight sm:text-4xl">{coreSentence}</blockquote>
+  </section>
+  <section class="grid gap-3 md:grid-cols-2">
+    <div class="border border-line bg-white p-5">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-blue">Source</p>
+      <p class="leading-7 text-ink">{source}</p>
+    </div>
+    <div class="border border-line bg-white p-5">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-blue">My Thought</p>
+      <p class="leading-7 text-ink">{myThought}</p>
+    </div>
+  </section>
+  <section class="grid gap-3 md:grid-cols-3">
+    <div class="border border-line bg-white p-5">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-blue">Related Notes</p>
+      {relatedNotes.length ? (
+        <ul class="grid gap-2 text-sm leading-6 text-ink">
+          {relatedNotes.map((note) => <li>{note}</li>)}
+        </ul>
+      ) : <p class="text-sm text-muted">연결된 메모가 아직 없습니다.</p>}
+    </div>
+    <div class="border border-line bg-white p-5">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-blue">Image Guide</p>
+      <p class="text-sm leading-6 text-ink">{imageGuide}</p>
+    </div>
+    <div class="border border-line bg-white p-5">
+      <p class="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-blue">Publish Checklist</p>
+      {checklist.length ? (
+        <ul class="grid gap-2 text-sm leading-6 text-ink">
+          {checklist.map((item) => <li>□ {item}</li>)}
+        </ul>
+      ) : <p class="text-sm text-muted">체크리스트가 아직 없습니다.</p>}
+    </div>
+  </section>
+</aside>

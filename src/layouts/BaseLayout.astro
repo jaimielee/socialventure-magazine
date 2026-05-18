@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Socialventure Magazine',
+  description = '중소 제조업 현장에서 브랜드, 시스템, AI를 실험하며 얻은 인사이트와 실행 기록을 공유하는 아카이브입니다.',
+} = Astro.props;
+const nav = [
+  ['/insights', 'Insights'],
+  ['/articles', 'Articles'],
+  ['/collections', 'Collections'],
+  ['/about', 'About'],
+  ['/contact', 'Contact'],
+];
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="min-h-screen">
+      <div class="accent-rule"></div>
+      <header class="mx-auto flex w-[min(1120px,calc(100vw_-_32px))] items-center justify-between gap-5 border-b border-line py-5">
+        <a href="/" class="text-lg font-extrabold tracking-tight text-ink">
+          SOCIALVENTURE<span class="text-blue">.</span>KR
+        </a>
+        <nav class="flex items-center gap-4 text-sm text-muted sm:gap-5">
+          <div class="hidden items-center gap-5 sm:flex">
+            {nav.map(([href, label]) => <a class="hover:text-blue" href={href}>{label}</a>)}
+          </div>
+          <a class="inline-flex size-9 items-center justify-center border border-line text-muted hover:border-blue hover:text-blue" href="/search" aria-label="Search">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m16.5 16.5 4 4"></path>
+            </svg>
+          </a>
+        </nav>
+      </header>
+      <slot />
+      <footer class="mx-auto mt-20 w-[min(1120px,calc(100vw_-_32px))] border-t border-line py-8 text-sm text-muted">
+        Building small brand systems in the field.
+      </footer>
+    </div>
+  </body>
+</html>
