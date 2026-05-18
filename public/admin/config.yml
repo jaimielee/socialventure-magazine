@@ -1,7 +1,9 @@
 local_backend: true
 
 backend:
-  name: test-repo
+  name: github
+  repo: jaimielee/socialventure-magazine
+  branch: main
 
 media_folder: public/uploads
 public_folder: /uploads

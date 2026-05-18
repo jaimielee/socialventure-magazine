@@ -26,18 +26,17 @@ http://localhost:4321/admin
 
 ## 배포 후 편집
 
-현재 로컬 편집을 바로 쓰기 위해 `public/admin/config.yml`은 `test-repo` 백엔드로 설정되어 있습니다.
-
-배포 전에 GitHub 저장소 정보를 실제 저장소로 바꿔야 합니다.
+`public/admin/config.yml`은 GitHub 저장소를 기준으로 설정되어 있습니다.
 
 ```yaml
 backend:
   name: github
-  repo: YOUR_GITHUB_ID/YOUR_REPO
+  repo: jaimielee/socialventure-magazine
   branch: main
 ```
 
-배포 후 `/admin`에서 글을 작성하면 GitHub에 커밋되고, Vercel 또는 Netlify가 다시 빌드합니다.
+배포 후 `/admin`에서 글을 작성하면 GitHub에 커밋되고, Cloudflare Pages가 다시 빌드합니다.
+Cloudflare Pages에서 Decap CMS 로그인을 사용하려면 GitHub OAuth 브릿지 설정이 추가로 필요합니다.
 
 ## 글 상태
 
