@@ -59,8 +59,9 @@ const nav = [
         </div>
       </div>
       <slot />
-      <footer class="mx-auto mt-20 w-[min(1120px,calc(100vw_-_32px))] border-t border-line py-8 text-sm text-muted">
-        Building small brand systems in the field.
+      <footer class="mx-auto mt-20 flex w-[min(1120px,calc(100vw_-_32px))] items-center justify-between gap-4 border-t border-line py-8 text-sm text-muted">
+        <span>Building small brand systems in the field.</span>
+        <a class="font-semibold text-blue hover:text-coral" href="/admin/">Admin</a>
       </footer>
       <div class="note-modal" data-note-modal-root aria-hidden="true">
         <div class="note-modal__backdrop" data-note-modal-close></div>

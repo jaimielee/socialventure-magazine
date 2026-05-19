@@ -14,11 +14,6 @@ const insights = (await getCollection('insights')).sort((a, b) => b.data.updated
         짧은 인사이트, 한줄 메모, 책/영상/인터뷰 인용, 짧은 생각을 한 문장 단위로 모읍니다.
       </p>
     </header>
-    <div class="mb-4 flex justify-end">
-      <a class="inline-flex size-11 items-center justify-center border border-blue bg-blue text-2xl font-semibold leading-none text-white hover:bg-coral" href="/admin/#/collections/insights/new" aria-label="새 인사이트 추가">
-        +
-      </a>
-    </div>
     <section class="grid gap-2">
       {insights.map((entry) => (
         <article class="border border-line bg-white p-4 transition hover:border-blue sm:p-5">
