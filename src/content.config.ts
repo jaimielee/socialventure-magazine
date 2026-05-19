@@ -5,7 +5,7 @@ import { z } from 'astro/zod';
 const status = z.enum(['draft', 'review', 'published']);
 
 const baseEditorial = {
-  title: z.string(),
+  title: z.string().default(''),
   description: z.string().default(''),
   category: z.string(),
   tags: z.array(z.string()).default([]),

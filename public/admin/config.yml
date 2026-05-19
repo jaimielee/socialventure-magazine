@@ -25,10 +25,10 @@ collections:
     create: true
     extension: mdx
     format: frontmatter
+    identifier_field: coreSentence
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     preview_path: "insights/{{slug}}"
     fields:
-      - { name: title, label: "관리용 제목", widget: string, hint: "목록과 파일명에 쓰는 제목입니다." }
       - { name: coreSentence, label: "한 줄 문장", widget: text, hint: "클릭하면 복사되는 본문 문장입니다." }
       - label: Type
         name: category
@@ -38,15 +38,12 @@ collections:
       - { name: source, label: "출처", widget: string, required: false }
       - { name: sourceUrl, label: "출처 링크", widget: string, required: false }
       - { name: tags, label: Tags, widget: list, required: false, hint: "필요하면 #으로 보여줄 태그를 넣습니다." }
-      - label: Status
-        name: status
-        widget: select
-        default: draft
-        options: [draft, review, published]
-      - { name: description, label: Description, widget: text, required: false }
-      - { name: originalNote, label: "보조 메모", widget: text, required: false }
-      - { name: publishPotential, label: "발행 가능성", widget: number, min: 1, max: 5, default: 3 }
-      - { name: updatedAt, label: Updated At, widget: datetime, default: "{{now}}" }
+      - { name: title, widget: hidden, default: "" }
+      - { name: description, widget: hidden, default: "" }
+      - { name: status, widget: hidden, default: published }
+      - { name: originalNote, widget: hidden, default: "" }
+      - { name: publishPotential, widget: hidden, default: 3 }
+      - { name: updatedAt, widget: hidden, default: "{{now}}" }
 
   - name: articles
     label: Blog
@@ -66,25 +63,16 @@ collections:
         default: "긴 글"
         options: ["긴 글", "에세이", "정리된 생각", "블로그형 글"]
       - { name: tags, label: Tags, widget: list, required: false }
-      - label: Status
-        name: status
-        widget: select
-        default: draft
-        options: [draft, review, published]
       - { name: coreSentence, label: "핵심 문장", widget: text }
       - { name: source, label: "출처", widget: string, required: false }
       - { name: sourceUrl, label: "출처 링크", widget: string, required: false }
       - { name: relatedSources, label: "원본 소스/참고 링크", widget: list, required: false }
-      - { name: checklist, label: "발행 체크리스트", widget: list, required: false }
-      - label: Hero Style
-        name: heroStyle
-        widget: select
-        default: text
-        options: [text, image, split]
-      - { name: readingMinutes, label: "Reading Minutes", widget: number, min: 1, default: 5 }
-      - { name: publishPotential, label: "발행 가능성", widget: number, min: 1, max: 5, default: 3 }
-      - { name: updatedAt, label: Updated At, widget: datetime, default: "{{now}}" }
-      - { name: body, label: Body, widget: markdown, required: false }
+      - { name: body, label: "내용", widget: markdown, required: false }
+      - { name: status, widget: hidden, default: published }
+      - { name: heroStyle, widget: hidden, default: text }
+      - { name: readingMinutes, widget: hidden, default: 5 }
+      - { name: publishPotential, widget: hidden, default: 3 }
+      - { name: updatedAt, widget: hidden, default: "{{now}}" }
 
   - name: collections
     label: "실전 팁"
@@ -98,64 +86,14 @@ collections:
     fields:
       - { name: title, label: "제목", widget: string }
       - { name: subtitle, label: "부제", widget: string, required: false }
-      - { name: description, label: "요약", widget: text }
+      - { name: description, label: "요약", widget: text, required: false }
       - label: Category
         name: category
         widget: select
         default: "노하우"
         options: ["노하우", "디지털 전환", "콘텐츠 제작", "실행 가이드"]
-      - { name: tags, label: "# 카테고리", widget: list, required: false }
-      - label: Status
-        name: status
-        widget: select
-        default: draft
-        options: [draft, review, published]
-      - { name: publishPotential, label: "발행 가능성", widget: number, min: 1, max: 5, default: 3 }
-      - { name: updatedAt, label: Updated At, widget: datetime, default: "{{now}}" }
       - { name: body, label: "내용", widget: markdown, required: false }
-
-  - name: references
-    label: References
-    label_singular: Reference
-    folder: src/content/references
-    create: true
-    extension: mdx
-    format: frontmatter
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { name: title, label: Title, widget: string }
-      - label: Source Type
-        name: sourceType
-        widget: select
-        default: unknown
-        options: [book, article, video, podcast, lecture, website, unknown]
-      - { name: creator, label: Creator, widget: string, required: false }
-      - { name: url, label: URL, widget: string, required: false }
-      - { name: category, label: Category, widget: string, default: "미분류" }
-      - { name: tags, label: Tags, widget: list, required: false }
-      - { name: noteIds, label: "Note IDs", widget: list, required: false }
-      - label: Reliability
-        name: reliability
-        widget: select
-        default: unknown
-        options: [primary, secondary, personal, unknown]
-      - { name: updatedAt, label: Updated At, widget: datetime, default: "{{now}}" }
-      - { name: body, label: Body, widget: markdown, required: false }
-
-  - name: raw_notes
-    label: Raw Notes
-    label_singular: Raw Note
-    folder: src/content/raw-notes
-    create: true
-    extension: md
-    format: frontmatter
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { name: title, label: Title, widget: string }
-      - { name: category, label: Category, widget: string, default: "미분류" }
-      - { name: tags, label: Tags, widget: list, required: false }
-      - { name: source, label: Source, widget: string, required: false }
-      - { name: author, label: Author, widget: string, required: false }
-      - { name: url, label: URL, widget: string, required: false }
-      - { name: capturedAt, label: Captured At, widget: datetime, required: false }
-      - { name: body, label: Body, widget: markdown, required: false }
+      - { name: tags, label: "# 카테고리", widget: list, required: false }
+      - { name: status, widget: hidden, default: published }
+      - { name: publishPotential, widget: hidden, default: 3 }
+      - { name: updatedAt, widget: hidden, default: "{{now}}" }
