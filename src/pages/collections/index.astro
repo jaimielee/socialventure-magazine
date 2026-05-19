@@ -6,11 +6,12 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 const collections = (await getCollection('collections')).sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
 ---
 
-<BaseLayout title="Collections">
+<BaseLayout title="실전 팁">
   <main class="mx-auto w-[min(1120px,calc(100vw_-_32px))] py-12">
     <header class="mb-8 border-b border-line pb-8">
-      <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-blue">Editorial Bundles</p>
-      <h1 class="text-[clamp(3rem,12vw,7rem)] font-extrabold leading-[0.9]">Collections</h1>
+      <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-blue">Practical Tips</p>
+      <h1 class="text-[clamp(3rem,12vw,7rem)] font-extrabold leading-[0.9]">실전 팁</h1>
+      <p class="mt-5 max-w-2xl text-base leading-7 text-muted">노하우, 디지털 전환, 콘텐츠 제작, 실행 가이드를 간결하게 정리합니다.</p>
     </header>
     <section class="grid gap-3 md:grid-cols-2">
       {collections.map((entry) => (

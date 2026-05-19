@@ -1,6 +1,5 @@
 ---
 import { getCollection } from 'astro:content';
-import ContentCard from '../../components/ContentCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const insights = (await getCollection('insights')).sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
@@ -11,11 +10,46 @@ const insights = (await getCollection('insights')).sort((a, b) => b.data.updated
     <header class="mb-8 border-b border-line pb-8">
       <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-blue">Short Cards</p>
       <h1 class="text-[clamp(3rem,12vw,7rem)] font-extrabold leading-[0.9]">Insights</h1>
+      <p class="mt-5 max-w-2xl text-base leading-7 text-muted">
+        짧은 인사이트, 한줄 메모, 책/영상/인터뷰 인용, 짧은 생각을 한 문장 단위로 모읍니다.
+      </p>
     </header>
-    <section class="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+    <div class="mb-4 flex justify-end">
+      <a class="inline-flex size-11 items-center justify-center border border-blue bg-blue text-2xl font-semibold leading-none text-white hover:bg-coral" href="/admin/#/collections/insights/new" aria-label="새 인사이트 추가">
+        +
+      </a>
+    </div>
+    <section class="grid gap-2">
       {insights.map((entry) => (
-        <ContentCard href={`/insights/${entry.id}`} title={entry.data.title} description={entry.data.description} category={entry.data.category} tags={entry.data.tags} status={entry.data.status} />
+        <article class="border border-line bg-white p-4 transition hover:border-blue sm:p-5">
+          <button class="copy-insight block w-full text-left" type="button" data-copy-text={entry.data.coreSentence}>
+            <p class="text-xl font-semibold leading-snug text-ink sm:text-2xl">{entry.data.coreSentence}</p>
+          </button>
+          <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs leading-5 text-muted">
+            <span class="font-semibold uppercase tracking-[0.14em] text-blue">{entry.data.category}</span>
+            {entry.data.source && (
+              entry.data.sourceUrl
+                ? <a class="hover:text-blue" href={entry.data.sourceUrl} target="_blank" rel="noreferrer">{entry.data.source}</a>
+                : <span>{entry.data.source}</span>
+            )}
+            {entry.data.tags.slice(0, 4).map((tag) => <span>#{tag}</span>)}
+            <span class="copy-insight-feedback hidden text-blue">Copied</span>
+          </div>
+        </article>
       ))}
     </section>
   </main>
+  <script>
+    document.addEventListener('click', async (event) => {
+      const button = event.target instanceof Element ? event.target.closest<HTMLButtonElement>('.copy-insight') : null;
+      if (!button) return;
+      const text = button.dataset.copyText || '';
+      if (!text) return;
+      await navigator.clipboard.writeText(text);
+      const card = button.closest('article');
+      const feedback = card?.querySelector('.copy-insight-feedback');
+      feedback?.classList.remove('hidden');
+      window.setTimeout(() => feedback?.classList.add('hidden'), 1200);
+    });
+  </script>
 </BaseLayout>

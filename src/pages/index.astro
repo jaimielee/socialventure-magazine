@@ -10,7 +10,7 @@ const [insights, articles, collections] = await Promise.all([
 ]);
 
 const featured = [
-  ...articles.map((entry) => ({ ...entry, type: 'Article', href: `/articles/${entry.id}` })),
+  ...articles.map((entry) => ({ ...entry, type: 'Blog', href: `/articles/${entry.id}` })),
   ...insights.map((entry) => ({ ...entry, type: 'Insight', href: `/insights/${entry.id}` })),
 ].sort((a, b) => b.data.publishPotential - a.data.publishPotential).slice(0, 6);
 ---
@@ -43,11 +43,11 @@ const featured = [
       </a>
       <a class="grid min-h-20 place-items-center border border-line bg-white px-2 py-3 text-center hover:border-blue" href="/articles">
         <strong class="block text-3xl leading-none text-blue sm:text-4xl">{articles.length}</strong>
-        <span class="mt-2 block text-[10px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs">Articles</span>
+        <span class="mt-2 block text-[10px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs">Blog</span>
       </a>
       <a class="grid min-h-20 place-items-center border border-line bg-white px-2 py-3 text-center hover:border-blue" href="/collections">
         <strong class="block text-3xl leading-none text-coral sm:text-4xl">{collections.length}</strong>
-        <span class="mt-2 block text-[10px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs">Collections</span>
+        <span class="mt-2 block text-[10px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs">실전 팁</span>
       </a>
     </section>
 

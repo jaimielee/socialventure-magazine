@@ -34,9 +34,10 @@ const insights = defineCollection({
   loader: glob({ base: './src/content/insights', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     ...baseEditorial,
+    sourceUrl: z.string().default(''),
     coreSentence: z.string(),
-    originalNote: z.string(),
-    myThought: z.string(),
+    originalNote: z.string().default(''),
+    myThought: z.string().default(''),
     source: z.string().default(''),
     checklist: z.array(z.string()).default([]),
   }),
@@ -46,9 +47,11 @@ const articles = defineCollection({
   loader: glob({ base: './src/content/articles', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     ...baseEditorial,
+    sourceUrl: z.string().default(''),
     coreSentence: z.string(),
     source: z.string().default(''),
-    myThought: z.string(),
+    relatedSources: z.array(z.string()).default([]),
+    myThought: z.string().default(''),
     checklist: z.array(z.string()).default([]),
     heroStyle: z.enum(['text', 'image', 'split']).default('text'),
     readingMinutes: z.number().min(1).default(5),
@@ -59,6 +62,7 @@ const collectionPlans = defineCollection({
   loader: glob({ base: './src/content/collections', pattern: '**/*.{md,mdx}' }),
   schema: z.object({
     title: z.string(),
+    subtitle: z.string().default(''),
     description: z.string(),
     category: z.string(),
     tags: z.array(z.string()).default([]),

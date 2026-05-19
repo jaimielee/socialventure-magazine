@@ -23,7 +23,7 @@ const items = [
     description: entry.data.description,
     category: entry.data.category,
     tags: entry.data.tags,
-    type: 'Article',
+    type: 'Blog',
     url: `/articles/${entry.id}`,
   })),
   ...collections.map((entry) => ({
@@ -31,7 +31,7 @@ const items = [
     description: entry.data.description,
     category: entry.data.category,
     tags: entry.data.tags,
-    type: 'Collection',
+    type: '실전 팁',
     url: `/collections/${entry.id}`,
   })),
 ];
