@@ -141,6 +141,19 @@ const nav = [
         }
 
         document.addEventListener('click', (event) => {
+          const copyColorButton = event.target.closest?.('[data-copy-color]');
+          if (copyColorButton) {
+            const color = copyColorButton.getAttribute('data-copy-color');
+            if (!color) return;
+            navigator.clipboard?.writeText(color);
+            const originalText = copyColorButton.textContent;
+            copyColorButton.textContent = 'Copied';
+            window.setTimeout(() => {
+              copyColorButton.textContent = originalText;
+            }, 1000);
+            return;
+          }
+
           const link = event.target.closest?.('a[data-note-modal]');
           if (!link) return;
           if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target === '_blank') return;
