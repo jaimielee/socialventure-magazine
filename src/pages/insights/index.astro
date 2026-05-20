@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const insights = (await getCollection('insights')).sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
+const tags = Array.from(new Set(insights.flatMap((entry) => entry.data.tags))).sort((a, b) => a.localeCompare(b, 'ko'));
 ---
 
 <BaseLayout title="Insights">
@@ -14,9 +15,21 @@ const insights = (await getCollection('insights')).sort((a, b) => b.data.updated
         짧은 인사이트, 한줄 메모, 책/영상/인터뷰 인용, 짧은 생각을 한 문장 단위로 모읍니다.
       </p>
     </header>
-    <section class="grid gap-2">
+    {tags.length ? (
+      <section class="mb-6 flex flex-wrap gap-2" aria-label="Insight tag filters">
+        <button class="insight-tag-filter border border-blue bg-blue px-3 py-2 text-sm font-semibold text-white" type="button" data-filter-tag="all" aria-pressed="true">
+          전체
+        </button>
+        {tags.map((tag) => (
+          <button class="insight-tag-filter border border-line bg-white px-3 py-2 text-sm font-semibold text-muted hover:border-blue hover:text-blue" type="button" data-filter-tag={tag} aria-pressed="false">
+            #{tag}
+          </button>
+        ))}
+      </section>
+    ) : null}
+    <section class="grid gap-2" data-insight-list>
       {insights.map((entry) => (
-        <article class="border border-line bg-white p-4 transition hover:border-blue sm:p-5">
+        <article class="border border-line bg-white p-4 transition hover:border-blue sm:p-5" data-insight-card data-tags={entry.data.tags.join('|')}>
           <button class="copy-insight block w-full text-left" type="button" data-copy-text={entry.data.coreSentence}>
             <p class="text-xl font-semibold leading-snug text-ink sm:text-2xl">{entry.data.coreSentence}</p>
           </button>
@@ -32,6 +45,9 @@ const insights = (await getCollection('insights')).sort((a, b) => b.data.updated
           </div>
         </article>
       ))}
+      <p class="hidden border border-line bg-white p-5 text-sm text-muted" data-empty-filter>
+        선택한 태그에 해당하는 인사이트가 없습니다.
+      </p>
     </section>
   </main>
   <script>
@@ -45,6 +61,37 @@ const insights = (await getCollection('insights')).sort((a, b) => b.data.updated
       const feedback = card?.querySelector('.copy-insight-feedback');
       feedback?.classList.remove('hidden');
       window.setTimeout(() => feedback?.classList.add('hidden'), 1200);
+    });
+
+    const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.insight-tag-filter'));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-insight-card]'));
+    const emptyMessage = document.querySelector<HTMLElement>('[data-empty-filter]');
+
+    filterButtons.forEach((filterButton) => {
+      filterButton.addEventListener('click', () => {
+        const selectedTag = filterButton.dataset.filterTag || 'all';
+        let visibleCount = 0;
+
+        filterButtons.forEach((button) => {
+          const isActive = button === filterButton;
+          button.setAttribute('aria-pressed', String(isActive));
+          button.classList.toggle('border-blue', isActive);
+          button.classList.toggle('bg-blue', isActive);
+          button.classList.toggle('text-white', isActive);
+          button.classList.toggle('border-line', !isActive);
+          button.classList.toggle('bg-white', !isActive);
+          button.classList.toggle('text-muted', !isActive);
+        });
+
+        cards.forEach((card) => {
+          const cardTags = (card.dataset.tags || '').split('|').filter(Boolean);
+          const shouldShow = selectedTag === 'all' || cardTags.includes(selectedTag);
+          card.classList.toggle('hidden', !shouldShow);
+          if (shouldShow) visibleCount += 1;
+        });
+
+        emptyMessage?.classList.toggle('hidden', visibleCount > 0);
+      });
     });
   </script>
 </BaseLayout>
