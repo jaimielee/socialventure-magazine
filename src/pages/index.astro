@@ -1,21 +1,60 @@
 ---
+import { getCollection } from 'astro:content';
+import ContentCard from '../components/ContentCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const [insights, articles, collections] = await Promise.all([
+  getCollection('insights'),
+  getCollection('articles'),
+  getCollection('collections'),
+]);
+
+const featured = [
+  ...articles.map((entry) => ({ ...entry, cardTitle: entry.data.title, type: 'Field Notes', href: `/articles/${entry.id}` })),
+  ...collections.map((entry) => ({ ...entry, cardTitle: entry.data.title, type: 'Practical Tips', href: `/collections/${entry.id}` })),
+  ...insights.map((entry) => ({ ...entry, cardTitle: entry.data.coreSentence, type: 'Short Notes', href: `/insights/${entry.id}` })),
+]
+  .sort((a, b) => b.data.publishPotential - a.data.publishPotential || b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf())
+  .slice(0, 6);
 ---
 
 <BaseLayout title="Socialventure Magazine" description="중소 제조 공장, 브랜드, AI, 콘텐츠 현장에서 직접 부딪히며 기록하는 아카이브입니다.">
-  <main class="mx-auto grid min-h-[calc(100vh-220px)] w-[min(1120px,calc(100vw_-_32px))] items-center py-16 sm:py-24">
-    <section class="max-w-5xl">
-      <h1 class="text-[clamp(4rem,15vw,10rem)] font-extrabold leading-[0.86] tracking-normal text-ink">
+  <main class="mx-auto w-[min(1120px,calc(100vw_-_32px))] py-10 sm:py-16">
+    <section class="border-b border-line pb-10">
+      <h1 class="max-w-4xl text-[clamp(3.15rem,9vw,6.5rem)] font-extrabold leading-[0.88] tracking-normal text-ink">
         Building<br />
         small<br />
         <span class="text-blue">brand</span><br />
         systems.
       </h1>
-      <p class="mt-10 max-w-3xl text-[clamp(1.35rem,3vw,2.5rem)] font-semibold leading-[1.28] tracking-normal text-ink">
+      <p class="mt-8 max-w-2xl text-[clamp(1.25rem,2.6vw,2rem)] font-semibold leading-[1.35] tracking-normal text-ink">
         중소 브랜드와 제조업의<br />
         콘텐츠 제작과 AI 기반 디지털 전환을<br />
         현장에서 직접 실험하고 기록합니다.
       </p>
+    </section>
+
+    <section class="mt-8">
+      <div class="mb-5 flex items-end justify-between gap-4 border-b border-line pb-4">
+        <div>
+          <p class="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue">Magazine</p>
+          <h2 class="text-3xl font-extrabold tracking-normal sm:text-4xl">Featured Notes</h2>
+        </div>
+        <a class="text-sm font-semibold text-blue hover:text-coral" href="/search">전체 검색</a>
+      </div>
+      <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+        {featured.map((entry) => (
+          <ContentCard
+            href={entry.href}
+            title={entry.cardTitle}
+            description={entry.data.description}
+            category={entry.data.category}
+            tags={entry.data.tags}
+            status={entry.data.status}
+            eyebrow={entry.type}
+          />
+        ))}
+      </div>
     </section>
   </main>
 </BaseLayout>
