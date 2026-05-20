@@ -1,74 +1,21 @@
 ---
-import { getCollection } from 'astro:content';
-import ContentCard from '../components/ContentCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const [insights, articles, collections] = await Promise.all([
-  getCollection('insights'),
-  getCollection('articles'),
-  getCollection('collections'),
-]);
-
-const featured = [
-  ...articles.map((entry) => ({ ...entry, type: 'Blog', href: `/articles/${entry.id}` })),
-  ...insights.map((entry) => ({ ...entry, type: 'Insight', href: `/insights/${entry.id}` })),
-].sort((a, b) => b.data.publishPotential - a.data.publishPotential).slice(0, 6);
 ---
 
 <BaseLayout title="Socialventure Magazine" description="중소 제조 공장, 브랜드, AI, 콘텐츠 현장에서 직접 부딪히며 기록하는 아카이브입니다.">
-  <main class="mx-auto w-[min(1120px,calc(100vw_-_32px))] py-10 sm:py-16">
-    <section class="grid gap-7 border-b border-line pb-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-      <div>
-        <p class="magazine-kicker mb-4 text-xs font-semibold uppercase tracking-[0.18em]">Field Notes for Small Brand Systems</p>
-        <h1 class="max-w-4xl text-[clamp(3rem,14vw,9rem)] font-extrabold leading-[0.86] tracking-normal">
-          Building small <span class="text-blue">brand</span> systems.
-        </h1>
-        <p class="mt-7 max-w-2xl text-2xl font-semibold leading-snug text-ink sm:text-3xl">
-          중소 제조 공장, 브랜드, AI, 콘텐츠.<br />
-          현장에서 직접 부딪히며 기록합니다.
-        </p>
-      </div>
-      <div class="grid gap-5">
-        <p class="max-w-md text-lg leading-8 text-muted">
-          소셜벤처의 크리에이티브 디렉터로서 중소 제조업 현장에서 브랜드, 시스템, AI를 실험합니다.
-          이곳은 그 과정에서 얻은 인사이트와 실행 기록을 공유하는 아카이브입니다.
-        </p>
-      </div>
-    </section>
-
-    <section class="grid grid-cols-3 gap-2 py-4">
-      <a class="grid min-h-20 place-items-center border border-line bg-white px-2 py-3 text-center hover:border-blue" href="/insights">
-        <strong class="block text-3xl leading-none text-blue sm:text-4xl">{insights.length}</strong>
-        <span class="mt-2 block text-[10px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs">Insights</span>
-      </a>
-      <a class="grid min-h-20 place-items-center border border-line bg-white px-2 py-3 text-center hover:border-blue" href="/articles">
-        <strong class="block text-3xl leading-none text-blue sm:text-4xl">{articles.length}</strong>
-        <span class="mt-2 block text-[10px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs">Blog</span>
-      </a>
-      <a class="grid min-h-20 place-items-center border border-line bg-white px-2 py-3 text-center hover:border-blue" href="/collections">
-        <strong class="block text-3xl leading-none text-coral sm:text-4xl">{collections.length}</strong>
-        <span class="mt-2 block text-[10px] font-semibold uppercase tracking-[0.12em] text-muted sm:text-xs">실전 팁</span>
-      </a>
-    </section>
-
-    <section class="mt-5">
-      <div class="mb-5 flex items-end justify-between gap-4">
-        <h2 class="text-4xl font-extrabold tracking-normal">Latest Notes</h2>
-        <a class="text-sm font-semibold text-blue hover:text-coral" href="/search">전체 검색</a>
-      </div>
-      <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
-        {featured.map((entry) => (
-          <ContentCard
-            href={entry.href}
-            title={entry.data.title}
-            description={entry.data.description}
-            category={entry.data.category}
-            tags={entry.data.tags}
-            status={entry.data.status}
-            eyebrow={entry.type}
-          />
-        ))}
-      </div>
+  <main class="mx-auto grid min-h-[calc(100vh-220px)] w-[min(1120px,calc(100vw_-_32px))] items-center py-16 sm:py-24">
+    <section class="max-w-5xl">
+      <h1 class="text-[clamp(4rem,15vw,10rem)] font-extrabold leading-[0.86] tracking-normal text-ink">
+        Building<br />
+        small<br />
+        <span class="text-blue">brand</span><br />
+        systems.
+      </h1>
+      <p class="mt-10 max-w-3xl text-[clamp(1.35rem,3vw,2.5rem)] font-semibold leading-[1.28] tracking-normal text-ink">
+        중소 브랜드와 제조업의<br />
+        콘텐츠 제작과 AI 기반 디지털 전환을<br />
+        현장에서 직접 실험하고 기록합니다.
+      </p>
     </section>
   </main>
 </BaseLayout>
