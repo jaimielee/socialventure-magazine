@@ -15,6 +15,7 @@ const tags = Array.from(new Set(insights.flatMap((entry) => entry.data.tags))).s
         짧은 인사이트, 한줄 메모, 책/영상/인터뷰 인용, 짧은 생각을 한 문장 단위로 모읍니다.
       </p>
     </header>
+    <p class="mb-4 text-sm text-muted">문장을 누르시면 클립보드에 복사 됩니다.</p>
     {tags.length ? (
       <section class="mb-6 flex flex-wrap gap-2" aria-label="Insight tag filters">
         <button class="insight-tag-filter border border-blue bg-blue px-3 py-2 text-sm font-semibold text-white" type="button" data-filter-tag="all" aria-pressed="true">
