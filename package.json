@@ -6,15 +6,18 @@
     "dev": "astro dev",
     "admin": "decap-server",
     "build": "astro check && astro build",
-    "preview": "astro preview",
+    "preview": "npm run build && wrangler dev",
     "generate": "tsx scripts/generate-candidates.ts",
-    "check": "astro check"
+    "check": "astro check",
+    "generate-types": "wrangler types",
+    "deploy": "npm run build && wrangler deploy"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@astrojs/cloudflare": "^13.5.3",
     "@astrojs/mdx": "^5.0.6",
     "astro": "^6.3.3",
     "fuse.js": "^7.3.0",
@@ -29,6 +32,10 @@
     "decap-server": "^3.7.0",
     "postcss": "^8.5.14",
     "tailwindcss": "^3.4.17",
-    "tsx": "^4.22.1"
+    "tsx": "^4.22.1",
+    "wrangler": "^4.93.0"
+  },
+  "overrides": {
+    "vite": "^7"
   }
 }
