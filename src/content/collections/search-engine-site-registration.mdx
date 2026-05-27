@@ -1,0 +1,111 @@
+---
+title: "새 웹사이트 검색엔진 등록 체크리스트"
+subtitle: "구글, 네이버, 빙, 다음에 사이트를 알리는 기본 절차"
+description: "새 웹사이트를 만든 뒤 검색엔진에 노출되도록 사이트맵, RSS, robots.txt를 확인하고 4대 검색엔진에 등록하는 실전 체크리스트입니다."
+category: "마케팅&브랜딩"
+tags: ["SEO", "검색엔진", "사이트맵", "RSS"]
+status: "published"
+insightIds: []
+articleIds: []
+sourceIds: []
+imageGuide: ""
+publishPotential: 5
+updatedAt: "2026-05-27"
+---
+
+새 웹사이트는 검색엔진에 출생신고가 필요합니다. 사이트를 만들었다고 바로 검색에 잘 잡히는 것이 아니라, 검색엔진이 읽을 수 있는 주소와 지도부터 알려줘야 합니다.
+
+## 먼저 확인할 URL
+
+브라우저에서 아래 주소가 정상 응답하는지 먼저 확인합니다.
+
+- Sitemap: [https://socialventure.kr/sitemap.xml](https://socialventure.kr/sitemap.xml)
+- RSS Feed: [https://socialventure.kr/feed/](https://socialventure.kr/feed/)
+- robots.txt: [https://socialventure.kr/robots.txt](https://socialventure.kr/robots.txt)
+
+현재 `socialventure.kr`은 `wp-sitemap.xml`이 아니라 `sitemap.xml`이 정상 응답합니다. 워드프레스 환경마다 사이트맵 주소가 다를 수 있으니, 등록 전에 반드시 직접 열어봅니다.
+
+## 1. 구글 서치콘솔
+
+구글 서치콘솔은 가장 먼저 등록합니다.
+
+1. [구글 서치콘솔](https://search.google.com/search-console) 접속
+2. 속성 추가
+3. URL 접두어 선택
+4. `https://socialventure.kr` 입력
+5. HTML 태그 방식으로 소유권 확인
+6. 워드프레스 SEO 플러그인의 Verification 칸에 HTML 태그 붙여넣기
+7. 좌측 메뉴의 사이트맵에서 `sitemap.xml` 제출
+
+Site Kit by Google 플러그인을 쓰면 소유권 확인을 자동으로 처리할 수도 있습니다.
+
+## 2. 네이버 서치어드바이저
+
+네이버는 국내 검색 노출을 위해 별도로 등록합니다.
+
+1. [네이버 서치어드바이저](https://searchadvisor.naver.com) 접속
+2. 네이버 로그인
+3. 사이트 등록에서 `https://socialventure.kr` 입력
+4. HTML 태그 방식으로 소유권 확인
+5. 요청 메뉴에서 사이트맵 제출
+6. 요청 메뉴에서 RSS 제출
+7. 필요하면 웹페이지 수집 요청을 1회 실행
+
+RSS는 블로그 글이 있을 때 특히 도움이 됩니다.
+
+## 3. 빙 웹마스터도구
+
+빙은 구글 서치콘솔 등록 후 가져오기로 처리하면 빠릅니다.
+
+1. [빙 웹마스터도구](https://www.bing.com/webmasters) 접속
+2. 구글 계정으로 로그인
+3. Import from Google Search Console 선택
+4. 구글에 등록한 사이트 가져오기
+5. 사이트맵이 함께 들어왔는지 확인
+
+빙 등록은 Microsoft Bing뿐 아니라 일부 다른 검색 환경에도 영향을 줍니다.
+
+## 4. 다음 웹마스터도구
+
+다음은 robots.txt 확인 코드를 요구할 수 있습니다.
+
+1. [다음 웹마스터도구](https://webmaster.daum.net) 접속
+2. 카카오 계정 로그인
+3. 사이트 등록
+4. 소유권 확인 코드 복사
+5. robots.txt에 코드 추가
+6. 사이트맵 등록
+
+워드프레스에서는 Yoast, Rank Math 같은 SEO 플러그인의 robots.txt 편집 기능을 사용하거나, 루트의 robots.txt 파일을 직접 편집합니다.
+
+## robots.txt에 사이트맵 명시
+
+robots.txt에는 사이트맵 위치를 적어두는 것이 좋습니다.
+
+```txt
+Sitemap: https://socialventure.kr/sitemap.xml
+User-agent: *
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php
+```
+
+현재 `socialventure.kr/robots.txt`에는 이미 사이트맵이 명시되어 있습니다.
+
+## 진행 체크리스트
+
+- [ ] sitemap, RSS, robots.txt URL 정상 응답 확인
+- [ ] 구글 서치콘솔 등록
+- [ ] 구글 서치콘솔에 사이트맵 제출
+- [ ] 네이버 서치어드바이저 등록
+- [ ] 네이버에 사이트맵과 RSS 제출
+- [ ] 네이버 웹페이지 수집 요청 1회 실행
+- [ ] 빙 웹마스터도구에서 구글 서치콘솔 가져오기
+- [ ] 다음 웹마스터도구 등록
+- [ ] 다음 소유권 확인 코드를 robots.txt에 추가
+- [ ] 1주일 후 각 콘솔에서 색인 상태 확인
+
+## 적용 가능 여부
+
+현재 `socialventure.kr`은 WordPress.com으로 응답하고, RSS와 robots.txt는 정상입니다. 사이트맵은 `wp-sitemap.xml`이 아니라 `sitemap.xml`을 사용하면 됩니다.
+
+다만 이 매거진 사이트가 배포된 Cloudflare Workers 주소와 `socialventure.kr`이 서로 다른 사이트라면, 검색엔진에는 실제로 노출시키고 싶은 최종 도메인을 등록해야 합니다. 검색엔진 등록은 콘텐츠를 대표하는 도메인 하나를 기준으로 진행하는 것이 가장 깔끔합니다.
