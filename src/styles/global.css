@@ -8,20 +8,20 @@
   --font-sans: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
   --font-serif: "Pretendard Variable", "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
   --color-ink: #111827;
-  --color-muted: #5f6f82;
-  --color-line: #d7e3ef;
-  --color-paper: #f7fbff;
+  --color-muted: #75645f;
+  --color-line: #ead9d2;
+  --color-paper: #fff8f4;
   --color-panel: #ffffff;
-  --color-teal: #2a7fdb;
-  --color-blue: #2a7fdb;
-  --color-sun: #d9ebff;
-  --color-coral: #1f5f9c;
-  --color-mist: #edf6ff;
+  --color-teal: #F04A1D;
+  --color-blue: #F04A1D;
+  --color-sun: #ffd8a8;
+  --color-coral: #b92712;
+  --color-mist: #fff0e8;
 }
 
 html {
   background:
-    linear-gradient(180deg, #eef7ff 0, var(--color-paper) 280px, #ffffff 100%);
+    linear-gradient(180deg, #fff0e8 0, var(--color-paper) 280px, #ffffff 100%);
   color: var(--color-ink);
   font-family: var(--font-sans);
 }
@@ -46,7 +46,7 @@ a {
 }
 
 .accent-rule {
-  background: linear-gradient(90deg, var(--color-blue), #6eb3f3, var(--color-sun));
+  background: linear-gradient(90deg, #b92712, var(--color-blue), var(--color-sun));
   height: 3px;
 }
 

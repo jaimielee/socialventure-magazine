@@ -5,15 +5,15 @@ export default {
     extend: {
       colors: {
         ink: '#111827',
-        muted: '#5f6f82',
-        line: '#d7e3ef',
-        paper: '#f7fbff',
+        muted: '#75645f',
+        line: '#ead9d2',
+        paper: '#fff8f4',
         panel: '#ffffff',
-        teal: '#2a7fdb',
-        blue: '#2a7fdb',
-        sun: '#d9ebff',
-        coral: '#1f5f9c',
-        mist: '#edf6ff',
+        teal: '#F04A1D',
+        blue: '#F04A1D',
+        sun: '#ffd8a8',
+        coral: '#b92712',
+        mist: '#fff0e8',
       },
       fontFamily: {
         sans: ['Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'system-ui', 'sans-serif'],
