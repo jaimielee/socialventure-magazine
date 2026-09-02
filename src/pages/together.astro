@@ -1,21 +1,23 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const workCategories = ['디지털 전환', '생산성 시스템', '콘텐츠 제작', '마케팅/브랜딩'];
+const contactEmail = 'jm_cd@naver.com';
 ---
 
 <BaseLayout title="함께하기 | Socialventure" description="제조업 현장에서 브랜드, 시스템, AI를 실험하며 함께할 수 있는 일을 소개합니다.">
   <main class="mx-auto w-[min(920px,calc(100vw_-_32px))] py-12 sm:py-20">
     <header class="border-b border-line pb-8">
       <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue">Together</p>
-      <h1 class="text-[clamp(3rem,12vw,7rem)] font-extrabold leading-[0.9]">
-        제조업 현장에서<br />
-        브랜드, 시스템, AI를 실험합니다.
+      <h1 class="max-w-3xl text-[clamp(2.25rem,7vw,4.75rem)] font-extrabold leading-[1.08] tracking-normal">
+        현장에서 DX, 콘텐츠, AI를 만들고 실험합니다.
       </h1>
     </header>
 
     <section class="grid gap-8 py-10 md:grid-cols-[0.8fr_1.2fr]">
       <p class="text-2xl font-semibold leading-tight text-blue">함께할 수 있는 것</p>
       <div class="grid gap-3 sm:grid-cols-2">
-        {['디지털 전환', '생산성 시스템', '콘텐츠 제작', '마케팅/브랜딩'].map((item) => (
+        {workCategories.map((item) => (
           <div class="border border-line bg-white p-5">
             <p class="text-xl font-semibold text-ink">{item}</p>
           </div>
@@ -25,11 +27,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
     <section class="border border-line bg-white p-6 sm:p-8">
       <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-blue">Recent Work</p>
-      <div class="grid gap-3 sm:grid-cols-3">
-        {['브랜드 구조 정리', '콘텐츠 시스템 설계', 'AI 업무 흐름 실험'].map((item) => (
+      <div class="grid gap-3 sm:grid-cols-2">
+        {workCategories.map((item) => (
           <article class="min-h-32 border border-line bg-paper p-4">
             <p class="text-lg font-semibold leading-snug text-ink">{item}</p>
-            <p class="mt-3 text-sm leading-6 text-muted">추후 카드형 포트폴리오로 배치 예정입니다.</p>
+            <p class="mt-3 text-sm leading-6 text-muted">포트폴리오 배치 예정입니다.</p>
           </article>
         ))}
       </div>
@@ -40,9 +42,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="max-w-2xl text-xl font-semibold leading-snug text-ink">
         프로젝트 문의나 협업 제안은 아래 메일로 보내주세요.
       </p>
-      <a class="mt-6 inline-flex border border-blue bg-blue px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white hover:bg-coral" href="mailto:codex@socialventure.kr">
-        codex@socialventure.kr
-      </a>
+      <button class="copy-email mt-6 inline-flex border border-blue bg-blue px-5 py-3 text-sm font-semibold uppercase tracking-[0.14em] text-white hover:bg-coral" type="button" data-copy-email={contactEmail}>
+        {contactEmail}
+      </button>
+      <p class="copy-email-feedback mt-3 hidden text-sm font-semibold text-blue">메일 주소를 복사했습니다.</p>
     </section>
   </main>
+  <script>
+    const emailButton = document.querySelector<HTMLButtonElement>('[data-copy-email]');
+    const emailFeedback = document.querySelector<HTMLElement>('.copy-email-feedback');
+
+    emailButton?.addEventListener('click', async () => {
+      const email = emailButton.dataset.copyEmail || '';
+      if (!email) return;
+      await navigator.clipboard.writeText(email);
+      emailFeedback?.classList.remove('hidden');
+      window.setTimeout(() => emailFeedback?.classList.add('hidden'), 1400);
+    });
+  </script>
 </BaseLayout>

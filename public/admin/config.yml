@@ -90,8 +90,8 @@ collections:
       - label: Category
         name: category
         widget: select
-        default: "노하우"
-        options: ["노하우", "디지털 전환", "콘텐츠 제작", "실행 가이드"]
+        default: "디지털 전환&AI"
+        options: ["디지털 전환&AI", "콘텐츠 제작", "마케팅&브랜딩"]
       - { name: body, label: "내용", widget: markdown, required: false }
       - { name: tags, label: "# 카테고리", widget: list, required: false }
       - { name: status, widget: hidden, default: published }
