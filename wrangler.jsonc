@@ -7,6 +7,17 @@
 		"directory": "./dist",
 		"binding": "ASSETS"
 	},
+	"workers_dev": true,
+	"routes": [
+		{
+			"pattern": "socialventure.kr/*",
+			"zone_name": "socialventure.kr"
+		},
+		{
+			"pattern": "www.socialventure.kr/*",
+			"zone_name": "socialventure.kr"
+		}
+	],
 	"observability": {
 		"enabled": true
 	}
