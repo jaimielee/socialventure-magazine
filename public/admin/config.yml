@@ -30,14 +30,14 @@ collections:
     preview_path: "insights/{{slug}}"
     fields:
       - { name: coreSentence, label: "한 줄 문장", widget: text, hint: "클릭하면 복사되는 본문 문장입니다." }
-      - label: Type
+      - label: 출처 유형
         name: category
         widget: select
-        default: "짧은 인사이트"
-        options: ["짧은 인사이트", "한줄 메모", "책 인용", "영상 인용", "인터뷰 인용", "짧은 생각"]
+        default: "독서 메모"
+        options: ["독서 메모", "인터뷰", "영상"]
       - { name: source, label: "출처", widget: string, required: false }
       - { name: sourceUrl, label: "출처 링크", widget: string, required: false }
-      - { name: tags, label: Tags, widget: list, required: false, hint: "필요하면 #으로 보여줄 태그를 넣습니다." }
+      - { name: tags, label: "검색 키워드", widget: list, required: false, hint: "검색에 사용할 키워드입니다. 인사이트 목록에는 표시하지 않습니다." }
       - { name: title, widget: hidden, default: "" }
       - { name: description, widget: hidden, default: "" }
       - { name: status, widget: hidden, default: published }

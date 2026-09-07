@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const insights = (await getCollection('insights')).sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
-const tags = Array.from(new Set(insights.flatMap((entry) => entry.data.tags))).sort((a, b) => a.localeCompare(b, 'ko'));
+const categories = ['독서 메모', '인터뷰', '영상'];
 ---
 
 <BaseLayout title="Insights">
@@ -12,25 +12,24 @@ const tags = Array.from(new Set(insights.flatMap((entry) => entry.data.tags))).s
       <p class="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-blue">Short Cards</p>
       <h1 class="text-[clamp(3rem,12vw,7rem)] font-extrabold leading-[0.9]">Insights</h1>
       <p class="mt-5 max-w-2xl text-base leading-7 text-muted">
-        짧은 인사이트, 한줄 메모, 책/영상/인터뷰 인용, 짧은 생각을 한 문장 단위로 모읍니다.
+        책, 인터뷰, 영상에서 발견한 문장과 생각을 모읍니다.
       </p>
     </header>
     <p class="mb-4 text-sm text-muted">문장을 누르시면 클립보드에 복사 됩니다.</p>
-    {tags.length ? (
-      <section class="mb-6 flex flex-wrap gap-2" aria-label="Insight tag filters">
-        <button class="insight-tag-filter border border-blue bg-blue px-3 py-2 text-sm font-semibold text-white" type="button" data-filter-tag="all" aria-pressed="true">
+      <section class="mb-6 flex flex-wrap gap-2" aria-label="인사이트 카테고리">
+        <button class="insight-category-filter rounded-full border border-blue bg-blue px-4 py-2 text-sm font-semibold text-white" type="button" data-filter-category="all" aria-pressed="true">
           전체
         </button>
-        {tags.map((tag) => (
-          <button class="insight-tag-filter border border-line bg-white px-3 py-2 text-sm font-semibold text-muted hover:border-blue hover:text-blue" type="button" data-filter-tag={tag} aria-pressed="false">
-            #{tag}
+        {categories.map((category) => (
+          <button class="insight-category-filter rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold text-muted hover:border-blue hover:text-blue" type="button" data-filter-category={category} aria-pressed="false">
+            {category}
           </button>
         ))}
       </section>
-    ) : null}
     <section class="grid gap-2" data-insight-list>
       {insights.map((entry) => (
-        <article class="border border-line bg-white p-4 transition hover:border-blue sm:p-5" data-insight-card data-tags={entry.data.tags.join('|')}>
+        <article class="flex flex-col gap-4 border border-line bg-white p-4 transition hover:border-blue sm:flex-row sm:items-center sm:p-5" data-insight-card data-category={entry.data.category}>
+          <div class="min-w-0 flex-1">
           <button class="copy-insight block w-full text-left" type="button" data-copy-text={entry.data.coreSentence}>
             <p class="text-xl font-semibold leading-snug text-ink sm:text-2xl">{entry.data.coreSentence}</p>
           </button>
@@ -41,14 +40,14 @@ const tags = Array.from(new Set(insights.flatMap((entry) => entry.data.tags))).s
                 ? <a class="hover:text-blue" href={entry.data.sourceUrl} target="_blank" rel="noreferrer">{entry.data.source}</a>
                 : <span>{entry.data.source}</span>
             )}
-            {entry.data.tags.slice(0, 4).map((tag) => <span>#{tag}</span>)}
-            {entry.body?.trim() && <a class="font-semibold text-blue hover:underline" href={`/insights/${entry.id}/`}>전체 메모 읽기 →</a>}
             <span class="copy-insight-feedback hidden text-blue">Copied</span>
           </div>
+          </div>
+          {entry.body?.trim() && <a class="inline-flex shrink-0 items-center justify-center gap-2 self-end rounded-lg border border-blue bg-white px-4 py-3 text-sm font-semibold text-blue transition hover:bg-blue hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue sm:self-center" href={`/insights/${entry.id}/`}>전체 메모 읽기 <span aria-hidden="true">→</span></a>}
         </article>
       ))}
       <p class="hidden border border-line bg-white p-5 text-sm text-muted" data-empty-filter>
-        선택한 태그에 해당하는 인사이트가 없습니다.
+        선택한 카테고리에 해당하는 인사이트가 없습니다.
       </p>
     </section>
   </main>
@@ -65,13 +64,13 @@ const tags = Array.from(new Set(insights.flatMap((entry) => entry.data.tags))).s
       window.setTimeout(() => feedback?.classList.add('hidden'), 1200);
     });
 
-    const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.insight-tag-filter'));
+    const filterButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.insight-category-filter'));
     const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-insight-card]'));
     const emptyMessage = document.querySelector<HTMLElement>('[data-empty-filter]');
 
     filterButtons.forEach((filterButton) => {
       filterButton.addEventListener('click', () => {
-        const selectedTag = filterButton.dataset.filterTag || 'all';
+        const selectedCategory = filterButton.dataset.filterCategory || 'all';
         let visibleCount = 0;
 
         filterButtons.forEach((button) => {
@@ -86,8 +85,7 @@ const tags = Array.from(new Set(insights.flatMap((entry) => entry.data.tags))).s
         });
 
         cards.forEach((card) => {
-          const cardTags = (card.dataset.tags || '').split('|').filter(Boolean);
-          const shouldShow = selectedTag === 'all' || cardTags.includes(selectedTag);
+          const shouldShow = selectedCategory === 'all' || card.dataset.category === selectedCategory;
           card.classList.toggle('hidden', !shouldShow);
           if (shouldShow) visibleCount += 1;
         });
