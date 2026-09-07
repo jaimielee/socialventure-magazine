@@ -19,7 +19,7 @@ const { Content } = await render(entry);
       {entry.data.subtitle && <p class="mt-5 max-w-2xl text-2xl font-semibold leading-snug text-ink">{entry.data.subtitle}</p>}
       <p class="mt-5 max-w-2xl text-lg leading-8 text-muted">{entry.data.description}</p>
     </header>
-    <article class="prose-magazine mt-8">
+    <article class="prose-magazine mt-8 [&_p]:my-4 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:my-2">
       <Content />
     </article>
     {entry.data.tags.length ? (
