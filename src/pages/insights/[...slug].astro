@@ -27,7 +27,7 @@ const { Content } = await render(entry);
       imageGuide={entry.data.imageGuide}
       checklist={entry.data.checklist}
     />
-    <article class="prose-magazine">
+    <article class="prose-magazine [&_p]:my-4 [&_ol]:my-4 [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:my-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:my-2">
       <Content />
     </article>
   </main>

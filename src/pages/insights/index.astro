@@ -42,6 +42,7 @@ const tags = Array.from(new Set(insights.flatMap((entry) => entry.data.tags))).s
                 : <span>{entry.data.source}</span>
             )}
             {entry.data.tags.slice(0, 4).map((tag) => <span>#{tag}</span>)}
+            {entry.body?.trim() && <a class="font-semibold text-blue hover:underline" href={`/insights/${entry.id}/`}>전체 메모 읽기 →</a>}
             <span class="copy-insight-feedback hidden text-blue">Copied</span>
           </div>
         </article>
