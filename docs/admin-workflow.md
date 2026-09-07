@@ -58,12 +58,12 @@ http://localhost:4321/articles/글-slug/
 
 ## 방문자 분석
 
-Google Analytics 4는 `PUBLIC_GA_MEASUREMENT_ID` 환경변수가 있을 때만 활성화됩니다.
+Google Analytics 4는 기본 측정 ID `G-CCSJXLR5FN`으로 활성화됩니다. 다른 속성으로 바꿔 테스트할 때는 `PUBLIC_GA_MEASUREMENT_ID` 환경변수로 덮어쓸 수 있습니다.
 
 로컬에서 확인할 때는 `.env`에 다음 값을 넣습니다.
 
 ```text
-PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+PUBLIC_GA_MEASUREMENT_ID=G-CCSJXLR5FN
 ```
 
-운영 배포에서는 Cloudflare 빌드 환경변수에 같은 이름으로 GA4 측정 ID를 등록합니다. Astro 정적 빌드에서 HTML에 삽입되는 값이므로, 환경변수 변경 뒤에는 새 빌드와 배포가 필요합니다.
+Astro 정적 빌드에서 HTML에 삽입되는 값이므로, 측정 ID 변경 뒤에는 새 빌드와 배포가 필요합니다.
