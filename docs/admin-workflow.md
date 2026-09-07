@@ -35,7 +35,9 @@ backend:
   branch: main
 ```
 
-배포 후 `/admin`에서 글을 작성하면 GitHub에 커밋되고, Cloudflare Pages가 다시 빌드합니다.
+배포 후 `/admin`에서 글을 작성하면 GitHub에 커밋되고, Cloudflare Workers Builds가 다시 빌드합니다.
+
+현재 배포 대상은 `socialventure-magazine` Worker입니다. 빌드 명령은 `npm run build`, 배포 명령은 `npx wrangler deploy`입니다. 저장소 루트의 `wrangler.jsonc`가 Astro의 정적 빌드 결과인 `dist`를 배포 대상으로 지정합니다. 이 설정이 없으면 Wrangler가 Astro 자동 설정을 시도하므로 파일을 유지합니다.
 Cloudflare Pages에서 Decap CMS 로그인을 사용하려면 GitHub OAuth 브릿지 설정이 추가로 필요합니다.
 
 ## 글 상태
