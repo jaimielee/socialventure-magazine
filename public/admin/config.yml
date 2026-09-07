@@ -38,9 +38,17 @@ collections:
       - { name: source, label: "출처", widget: string, required: false }
       - { name: sourceUrl, label: "출처 링크", widget: string, required: false }
       - { name: tags, label: "검색 키워드", widget: list, required: false, hint: "검색에 사용할 키워드입니다. 인사이트 목록에는 표시하지 않습니다." }
+      - label: 공개 상태
+        name: status
+        widget: select
+        default: review
+        options:
+          - { label: "작성 중", value: draft }
+          - { label: "검토 중", value: review }
+          - { label: "공개", value: published }
+        hint: "배포 사이트에는 공개 상태인 글만 노출됩니다. 작성 중/검토 중 글은 로컬 개발 서버에서 확인하세요."
       - { name: title, widget: hidden, default: "" }
       - { name: description, widget: hidden, default: "" }
-      - { name: status, widget: hidden, default: published }
       - { name: originalNote, widget: hidden, default: "" }
       - { name: publishPotential, widget: hidden, default: 3 }
       - { name: updatedAt, widget: hidden, default: "{{now}}" }
@@ -67,8 +75,16 @@ collections:
       - { name: source, label: "출처", widget: string, required: false }
       - { name: sourceUrl, label: "출처 링크", widget: string, required: false }
       - { name: relatedSources, label: "원본 소스/참고 링크", widget: list, required: false }
+      - label: 공개 상태
+        name: status
+        widget: select
+        default: review
+        options:
+          - { label: "작성 중", value: draft }
+          - { label: "검토 중", value: review }
+          - { label: "공개", value: published }
+        hint: "배포 사이트에는 공개 상태인 글만 노출됩니다. 작성 중/검토 중 글은 로컬 개발 서버에서 확인하세요."
       - { name: body, label: "내용", widget: markdown, required: false }
-      - { name: status, widget: hidden, default: published }
       - { name: heroStyle, widget: hidden, default: text }
       - { name: readingMinutes, widget: hidden, default: 5 }
       - { name: publishPotential, widget: hidden, default: 3 }
@@ -92,8 +108,16 @@ collections:
         widget: select
         default: "노하우"
         options: ["노하우", "디지털 전환", "콘텐츠 제작", "실행 가이드"]
+      - label: 공개 상태
+        name: status
+        widget: select
+        default: review
+        options:
+          - { label: "작성 중", value: draft }
+          - { label: "검토 중", value: review }
+          - { label: "공개", value: published }
+        hint: "배포 사이트에는 공개 상태인 글만 노출됩니다. 작성 중/검토 중 글은 로컬 개발 서버에서 확인하세요."
       - { name: body, label: "내용", widget: markdown, required: false }
       - { name: tags, label: "# 카테고리", widget: list, required: false }
-      - { name: status, widget: hidden, default: published }
       - { name: publishPotential, widget: hidden, default: 3 }
       - { name: updatedAt, widget: hidden, default: "{{now}}" }

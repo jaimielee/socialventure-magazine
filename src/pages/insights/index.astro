@@ -1,8 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isVisibleContent } from '../../lib/contentVisibility';
 
-const insights = (await getCollection('insights')).sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
+const insights = (await getCollection('insights')).filter(isVisibleContent).sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
 const categories = ['독서 메모', '인터뷰', '영상'];
 ---
 

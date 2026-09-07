@@ -2,9 +2,10 @@
 import { getCollection, render } from 'astro:content';
 import DetailBlocks from '../../components/DetailBlocks.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isVisibleContent } from '../../lib/contentVisibility';
 
 export async function getStaticPaths() {
-  const insights = await getCollection('insights');
+  const insights = (await getCollection('insights')).filter(isVisibleContent);
   return insights.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 

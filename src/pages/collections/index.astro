@@ -2,8 +2,9 @@
 import { getCollection } from 'astro:content';
 import ContentCard from '../../components/ContentCard.astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { isVisibleContent } from '../../lib/contentVisibility';
 
-const collections = (await getCollection('collections')).sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
+const collections = (await getCollection('collections')).filter(isVisibleContent).sort((a, b) => b.data.updatedAt.valueOf() - a.data.updatedAt.valueOf());
 ---
 
 <BaseLayout title="실전 팁">

@@ -101,6 +101,231 @@ a {
   text-underline-offset: 0.2em;
 }
 
+.prose-magazine :where(pre) {
+  background: #101827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #eef6ff;
+  margin: 1.6rem 0;
+  overflow-x: auto;
+  padding: 1.2rem;
+  white-space: pre-wrap;
+}
+
+.prose-magazine :where(code) {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}
+
+.ikigai-map {
+  display: grid;
+  gap: 1.2rem;
+  margin: 2.4rem 0;
+}
+
+.ikigai-map__venn {
+  aspect-ratio: 1 / 0.74;
+  min-height: 520px;
+  position: relative;
+}
+
+.ikigai-map__circle {
+  align-items: center;
+  border: 2px solid color-mix(in srgb, var(--ikigai-color) 68%, #ffffff);
+  border-radius: 999px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  height: 54%;
+  justify-content: center;
+  padding: 2rem 2.4rem;
+  position: absolute;
+  text-align: center;
+  width: 48%;
+}
+
+.ikigai-map__circle h3 {
+  color: #111827;
+  font-size: clamp(1.05rem, 3vw, 1.45rem);
+  font-weight: 850;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.ikigai-map__circle p {
+  color: #243244;
+  font-size: clamp(0.88rem, 2vw, 1rem);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 12.5rem;
+}
+
+.ikigai-map__circle--good {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.ikigai-map__circle--need {
+  align-items: flex-end;
+  text-align: left;
+}
+
+.ikigai-map__circle--love {
+  --ikigai-color: #ff7f89;
+  background: color-mix(in srgb, var(--ikigai-color) 52%, transparent);
+  left: 26%;
+  top: 0;
+}
+
+.ikigai-map__circle--good {
+  --ikigai-color: #5db7ff;
+  background: color-mix(in srgb, var(--ikigai-color) 48%, transparent);
+  left: 6%;
+  top: 28%;
+}
+
+.ikigai-map__circle--need {
+  --ikigai-color: #ffd95d;
+  background: color-mix(in srgb, var(--ikigai-color) 52%, transparent);
+  right: 6%;
+  top: 28%;
+}
+
+.ikigai-map__circle--paid {
+  --ikigai-color: #7ddc9a;
+  background: color-mix(in srgb, var(--ikigai-color) 52%, transparent);
+  bottom: 0;
+  left: 26%;
+}
+
+.ikigai-map__center {
+  align-items: center;
+  background: #111827;
+  border: 4px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+  box-shadow: 0 22px 60px rgba(17, 24, 39, 0.18);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  height: min(220px, 25vw);
+  justify-content: center;
+  left: 50%;
+  min-height: 190px;
+  min-width: 190px;
+  padding: 1.5rem;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(220px, 25vw);
+  z-index: 2;
+}
+
+.ikigai-map__center span {
+  color: #a7d8ff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.ikigai-map__center strong {
+  font-size: clamp(1rem, 2.3vw, 1.32rem);
+  line-height: 1.35;
+}
+
+.ikigai-map__intersections {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.ikigai-map__intersections div,
+.ikigai-business article {
+  background: #ffffff;
+  border: 1px solid var(--color-line);
+  padding: 1rem;
+}
+
+.ikigai-map__intersections b {
+  color: var(--color-blue);
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.35rem;
+}
+
+.ikigai-map__intersections span,
+.ikigai-business span {
+  color: #343b46;
+  display: block;
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.ikigai-business {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 2rem 0;
+}
+
+.ikigai-business article {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.ikigai-business p {
+  align-items: center;
+  background: var(--color-blue);
+  border-radius: 999px;
+  color: #ffffff;
+  display: inline-flex;
+  font-size: 0.82rem;
+  font-weight: 850;
+  height: 2.1rem;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  width: 2.1rem;
+}
+
+.ikigai-business h3 {
+  font-size: 1.18rem;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .ikigai-map__venn {
+    aspect-ratio: auto;
+    display: grid;
+    gap: 0.75rem;
+    min-height: 0;
+  }
+
+  .ikigai-map__circle,
+  .ikigai-map__center {
+    border-radius: 0;
+    height: auto;
+    left: auto;
+    min-height: 0;
+    min-width: 0;
+    padding: 1.15rem;
+    position: static;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: auto;
+  }
+
+  .ikigai-map__circle p {
+    max-width: none;
+  }
+
+  .ikigai-map__intersections,
+  .ikigai-business {
+    grid-template-columns: 1fr;
+  }
+}
+
 .color-ref {
   display: grid;
   gap: 1.5rem;

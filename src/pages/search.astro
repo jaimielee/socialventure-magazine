@@ -2,11 +2,12 @@
 import { getCollection } from 'astro:content';
 import SearchBox from '../components/SearchBox.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { isVisibleContent } from '../lib/contentVisibility';
 
 const [insights, articles, collections] = await Promise.all([
-  getCollection('insights'),
-  getCollection('articles'),
-  getCollection('collections'),
+  getCollection('insights').then((entries) => entries.filter(isVisibleContent)),
+  getCollection('articles').then((entries) => entries.filter(isVisibleContent)),
+  getCollection('collections').then((entries) => entries.filter(isVisibleContent)),
 ]);
 
 const items = [
