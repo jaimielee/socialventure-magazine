@@ -5,6 +5,8 @@ const form = document.querySelector<HTMLFormElement>('#quote-form')!;
 const quoteStatus = document.querySelector<HTMLElement>('#quote-status')!;
 const itemInputs = document.querySelector<HTMLElement>('#item-inputs')!;
 const key = 'socialventure-quote-v1';
+const supplier:Record<string,string> = {company:'플러그인 주식회사',owner:'이정민',business:'464-86-02680',phone:'010-3128-5863 / jm_cd@naver.com',address:'경기도 화성시 팔탄면 서근리 14-68'};
+const applySupplier = () => Object.entries(supplier).forEach(([name,value])=>{control(name).value=value;});
 const names = ['project','recipient','contact','number','date','valid','company','owner','business','phone','address','notes'];
 const won = (n:number) => `${n.toLocaleString('ko-KR')}원`;
 const control = (name:string) => form.elements.namedItem(name) as HTMLInputElement;
@@ -15,13 +17,14 @@ const setText = (id:string,text:string) => { document.getElementById(id)!.textCo
 function snapshot():Quote { return {version:1,fields:Object.fromEntries(names.map(n=>[n,control(n).value])),vat:control('vat').checked,items}; }
 function render() {
   const q=snapshot();
-  document.querySelectorAll<HTMLElement>('[data-value]').forEach(el=>{el.textContent=q.fields[el.dataset.value!] || '—';});
+  document.querySelectorAll<HTMLElement>('[data-value]').forEach(el=>{el.textContent=q.fields[el.dataset.value!] || (['notes','valid'].includes(el.dataset.value!)?'':'—');});
+  document.getElementById('valid-line')!.hidden=!q.fields.valid.trim();
   const body=document.getElementById('preview-items')!;body.replaceChildren();
   let supply=0;
   items.forEach((it,i)=>{
     const amount=Math.round(it.qty*it.price);supply+=amount;
     const row=document.createElement('tr');
-    [String(i+1),it.name||'항목명',it.spec||'—',String(it.qty),it.unit,it.price.toLocaleString('ko-KR'),amount.toLocaleString('ko-KR')].forEach(v=>{const cell=document.createElement('td');cell.textContent=v;row.append(cell);});body.append(row);
+    [String(i+1),it.name||'항목명',amount.toLocaleString('ko-KR')].forEach(v=>{const cell=document.createElement('td');cell.textContent=v;row.append(cell);});body.append(row);
   });
   const vat=q.vat?Math.round(supply*.1):0;
   setText('supply-total',won(supply));setText('vat-total',won(vat));setText('grand-total',won(supply+vat));setText('bottom-total',won(supply+vat));setText('tax-label',q.vat?'부가세 포함':'부가세 제외');
@@ -30,13 +33,13 @@ function renderInputs() {
   itemInputs.replaceChildren();
   items.forEach((it,i)=>{
     const group=document.createElement('div');group.className='quote-row-editor';
-    const fields: [keyof Item,string][]=[['name','품목 / 작업 내용'],['spec','규격 / 상세'],['qty','수량'],['unit','단위'],['price','단가 (원)']];
+    const fields: ['name'|'price',string][]=[['name','품목 / 작업 내용'],['price','금액 (원)']];
     fields.forEach(([field,label])=>{
-      const wrap=document.createElement('label');wrap.textContent=`${i+1}. ${label}`;if(field==='name'||field==='spec')wrap.className='wide';
+      const wrap=document.createElement('label');wrap.textContent=`${i+1}. ${label}`;if(field==='name')wrap.className='wide';
       const input=document.createElement('input');input.value=String(it[field]);input.setAttribute('aria-label',`${i+1}번 ${label}`);
-      if(field==='qty'||field==='price'){input.type='number';input.min='0';input.max=field==='qty'?'10000':'1000000000';input.step=field==='qty'?'0.001':'1';}
+      if(field==='price'){input.type='number';input.min='0';input.max='10000000000000';input.step='1';}
       else input.maxLength=300;
-      input.addEventListener('input',()=>{if(field==='qty'||field==='price'){if(!input.checkValidity()){quoteStatus.textContent='수량은 0~10,000, 단가는 0~1,000,000,000 범위로 입력하세요.';return;}it[field]=Number(input.value)||0;}else{it[field]=input.value;}quoteStatus.textContent='수정 내용이 있습니다. 보관하려면 저장을 눌러주세요.';render();});
+      input.addEventListener('input',()=>{if(field==='price'){if(!input.checkValidity()){quoteStatus.textContent='금액은 0~10,000,000,000,000 범위의 정수로 입력하세요.';return;}it[field]=Number(input.value)||0;}else{it[field]=input.value;}quoteStatus.textContent='수정 내용이 있습니다. 보관하려면 저장을 눌러주세요.';render();});
       wrap.append(input);group.append(wrap);
     });
     const remove=document.createElement('button');remove.type='button';remove.className='remove';remove.textContent='항목 삭제';remove.setAttribute('aria-label',`${i+1}번 항목 삭제`);
@@ -47,11 +50,11 @@ function validate(raw:unknown):Quote {
   const q=raw as Quote;
   if(!q||q.version!==1||!q.fields||typeof q.vat!=='boolean'||!Array.isArray(q.items)||q.items.length<1||q.items.length>100)throw Error('올바른 견적서 파일이 아닙니다.');
   for(const n of names)if(typeof q.fields[n]!=='string'||q.fields[n].length>(n==='notes'?5000:200))throw Error('입력 정보의 형식이나 길이를 확인하세요.');
-  for(const it of q.items){if(!it||['name','spec','unit'].some(n=>typeof it[n as keyof Item]!=='string'||String(it[n as keyof Item]).length>300)||!Number.isFinite(it.qty)||!Number.isFinite(it.price)||it.qty<0||it.qty>1e4||it.price<0||it.price>1e9||!Number.isInteger(it.price))throw Error('항목의 수량과 단가를 확인하세요.');}
+  for(const it of q.items){if(!it||['name','spec','unit'].some(n=>typeof it[n as keyof Item]!=='string'||String(it[n as keyof Item]).length>300)||!Number.isFinite(it.qty)||!Number.isFinite(it.price)||it.qty<0||it.qty>1e4||it.price<0||it.price>1e13||it.qty*it.price>1e13||!Number.isInteger(it.price))throw Error('항목의 수량과 단가를 확인하세요.');}
   return q;
 }
-function load(q:Quote){names.forEach(n=>{control(n).value=q.fields[n];});control('vat').checked=q.vat;items=q.items.map(it=>({...it}));renderInputs();render();}
-function reset(){form.reset();names.forEach(n=>{control(n).value='';});control('date').value=today();control('number').value=`QT-${today().replaceAll('-','')}-01`;control('valid').value='작성일로부터 14일';items=[blankItem()];renderInputs();render();}
+function load(q:Quote){names.forEach(n=>{control(n).value=q.fields[n];});control('vat').checked=q.vat;applySupplier();items=q.items.map(it=>({...it,qty:1,price:Math.round(it.qty*it.price)}));renderInputs();render();}
+function reset(){form.reset();names.forEach(n=>{control(n).value='';});control('date').value=today();control('number').value=`QT-${today().replaceAll('-','')}-01`;applySupplier();items=[blankItem()];renderInputs();render();}
 function validForm(){if(!form.reportValidity()){quoteStatus.textContent='입력값을 확인하세요.';return false;}return true;}
 form.addEventListener('submit',e=>e.preventDefault());
 form.addEventListener('input',()=>{render();});
