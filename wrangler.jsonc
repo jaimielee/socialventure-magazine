@@ -3,6 +3,7 @@
   "main": "src/hanam-gate.mjs",
   "compatibility_date": "2026-09-07",
   "upload_source_maps": true,
+  "build": { "command": "node scripts/build-design-module.mjs" },
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
