@@ -16,11 +16,12 @@ const nav = [
   ['/collections', '실전 팁'],
   ['/together', '함께하기'],
 ];
+const designPage = Astro.url.pathname.split('/').filter(Boolean)[0] || 'home';
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-CCSJXLR5FN';
 ---
 
 <!doctype html>
-<html lang="ko">
+<html lang="ko" data-sv-design="20261110" data-sv-page={designPage}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -38,6 +39,8 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-CCSJXLR5F
       </>
     )}
     <title>{title}</title>
+  <link rel="stylesheet" href="/design/site-20261110.css" data-sv-theme />
+    <script is:inline defer src="/design/site-20261110.js" data-sv-theme></script>
   </head>
   <body>
     <div class="min-h-screen">

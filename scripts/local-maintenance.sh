@@ -3,6 +3,7 @@ set -eu
 cd "$(dirname "$0")/.."
 NODE_BIN=/Users/jamie/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/bin
 export PATH="$NODE_BIN:$PATH"
+node scripts/build-design-module.mjs
 case "${1:-check}" in
  check) node node_modules/astro/bin/astro.mjs check; node scripts/verify-recovered-gate.mjs ;;
  build) node node_modules/astro/bin/astro.mjs check; node node_modules/astro/bin/astro.mjs build ;;

@@ -11,6 +11,7 @@ interface Props {
   eyebrow?: string;
 }
 
+const Heading = Astro.url.pathname === '/' ? 'h3' : 'h2';
 const { href, title, description = '', category = '', tags = [], status = 'draft', eyebrow = '' } = Astro.props;
 ---
 
@@ -21,7 +22,7 @@ const { href, title, description = '', category = '', tags = [], status = 'draft
       <p class="text-xs font-semibold uppercase tracking-[0.16em] text-blue">{eyebrow || category}</p>
       <StatusBadge status={status} />
     </div>
-    <h2 class="text-2xl font-extrabold leading-[1.08] tracking-normal text-ink group-hover:text-blue sm:text-3xl">{title}</h2>
+    <Heading class="text-2xl font-extrabold leading-[1.08] tracking-normal text-ink group-hover:text-blue sm:text-3xl">{title}</Heading>
     {description && <p class="mt-4 text-[15px] leading-7 text-muted">{description}</p>}
   </div>
   <div class="mt-8 flex flex-wrap gap-2">
