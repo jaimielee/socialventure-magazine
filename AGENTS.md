@@ -2,7 +2,8 @@
 
 Production Worker socialventure-magazine serves socialventure.kr/* and www.socialventure.kr/*.
 The owner explicitly requested removing HANAM business-number login and authorized deployment.
-Current deployment: 7caac0ef-1a63-44ca-b38c-5708563ffece, superseding 7b55f526-5efc-4ed7-b3fc-fab46bc8ad99.
+Current design deployment: e3b2d37a-4e0f-425a-affc-316d7fd9849a.
+Previous direct-access deployment: 7caac0ef-1a63-44ca-b38c-5708563ffece, superseding the login-gated 7b55f526-5efc-4ed7-b3fc-fab46bc8ad99.
 
 - src/hanam-gate.mjs now serves the board directly; do not restore authentication unless requested.
 - public/hanam/index.html and public/_astro/hanam* were recovered from the latest deployed files, not original Astro source. Preserve browser storage keys, meeting IDs and existing seed/migration behavior.
