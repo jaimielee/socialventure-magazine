@@ -1,0 +1,2 @@
+export const heroMarkup = '<figure class="sv-jemissi-hero" data-jemissi="hero"><img src="/character/jemissi-pen-v1.png" alt="펜을 들고 기록하는 제미씨" width="190" height="300" fetchpriority="high" decoding="async"></figure>';
+export const bylineMarkup = '<span class="sv-jemissi-byline" data-jemissi="byline"><img src="/character/jemissi-face-v1.png" alt="" width="32" height="32" loading="lazy" decoding="async"><span>제미씨의 기록</span></span>';

@@ -16,9 +16,9 @@ assert.equal((await worker.fetch(req('/%ZZ'),env)).status,400);
 r=await worker.fetch(req('/hanam/',{headers:{Cookie:'__Host-hanam_session=invalid'}}),env);assert.equal(r.status,200);
 console.log('PASS direct board access without secrets/cookies, aliases, assets, legacy login redirect, HEAD, methods, malformed URL and headers.');
 
-const theme = await worker.fetch(req('/design/site-20261110.css'),env);
+const theme = await worker.fetch(req('/design/site-20261110-character.css'),env);
 assert.match(theme.headers.get('content-type'),/text\/css/);assert.match(await theme.text(),/prefers-reduced-motion/);
-assert.equal((await worker.fetch(req('/design/site-20261110.js',{method:'POST'}),env)).status,405);
+assert.equal((await worker.fetch(req('/design/site-20261110-character.js',{method:'POST'}),env)).status,405);
 
 const realFetch = globalThis.fetch;
 let forwarded;
@@ -30,3 +30,5 @@ assert.equal(new URL(forwarded.url).hostname,'7caac0ef-socialventure-magazine.b0
 assert.equal(forwarded.options.headers.get('Cookie'),null);assert.equal(forwarded.options.headers.get('Authorization'),null);
 globalThis.fetch = realFetch;
 console.log('PASS preserved-version fallback for otherwise missing files without forwarding credentials.');
+
+const icon=await worker.fetch(req('/character/jemissi-icon-v1.png'),env);assert.equal(icon.headers.get('content-type'),'image/png');assert.equal(new Uint8Array(await icon.arrayBuffer())[0],137);

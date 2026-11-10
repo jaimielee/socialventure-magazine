@@ -1,4 +1,5 @@
 ---
+import { heroMarkup } from '../character-markup.mjs';
 import { getCollection } from 'astro:content';
 import ContentCard from '../components/ContentCard.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
@@ -30,6 +31,7 @@ const featured = [
         </p>
       </div>
       <div class="grid gap-5">
+        <Fragment set:html={heroMarkup} />
         <p class="max-w-md text-lg leading-8 text-muted">
           소셜벤처의 크리에이티브 디렉터로서 중소 제조업 현장에서 브랜드, 시스템, AI를 실험합니다.
           이곳은 그 과정에서 얻은 인사이트와 실행 기록을 공유하는 아카이브입니다.
