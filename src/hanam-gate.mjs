@@ -1,4 +1,4 @@
-import { heroMarkup, bylineMarkup } from './character-markup.mjs';
+import { mastheadMarkup, bylineMarkup } from './character-markup.mjs';
 import { css, js, characterAssets } from './generated/site-design.mjs';
 // The owner requested direct-link access on 2026-11-10.
 // Keep the current assets, routing normalization and board response headers.
@@ -30,8 +30,8 @@ export default {
         'Content-Type':characterAsset.type, 'Cache-Control':'public, max-age=86400', 'X-Content-Type-Options':'nosniff'
       }});
     }
-    const designAsset = path === '/design/site-20261110-motion.css' ? [css, 'text/css']
-      : path === '/design/site-20261110-motion.js' ? [js, 'application/javascript'] : null;
+    const designAsset = path === '/design/site-20261110-simple.css' ? [css, 'text/css']
+      : path === '/design/site-20261110-simple.js' ? [js, 'application/javascript'] : null;
     if (designAsset) {
       if (!['GET', 'HEAD'].includes(request.method)) return new Response('Method not allowed', {status:405});
       return new Response(request.method === 'HEAD' ? null : designAsset[0], {headers:{
@@ -61,14 +61,14 @@ function decorate(response, request, path) {
   return new HTMLRewriter()
     .on('html', {element(el) {el.setAttribute('data-sv-design', '20261110'); el.setAttribute('data-sv-page', page);}})
     .on('main a.group[data-note-modal] h2', {element(el) {if (page === 'home') el.tagName = 'h3';}})
-    .on('main > section:first-child > div:nth-child(2)', {element(el) {if(page === 'home') el.prepend(heroMarkup, {html:true});}})
+    .on('main > section:first-child', {element(el) {if(page === 'home') el.setInnerContent(mastheadMarkup, {html:true});}})
     .on('a.group[data-note-modal]', {element(el) {el.append(bylineMarkup, {html:true});}})
     .on('[data-insight-card] > div > div', {element(el) {el.append(bylineMarkup, {html:true});}})
     .on('main > header', {element(el) {if (['insights','articles','collections'].includes(page) && path.split('/').filter(Boolean).length > 1) el.append(bylineMarkup, {html:true});}})
     .on('[data-jemissi]', {element(el) {el.remove();}})
     .on('link[rel="icon"]', {element(el) {el.setAttribute('type', 'image/png');el.setAttribute('sizes', '64x64');el.setAttribute('href', '/character/jemissi-icon-v1.png');}})
     .on('[data-sv-theme]' , {element(el) {el.remove();}})
-    .on('head', {element(el) {el.append('<link rel="stylesheet" href="/design/site-20261110-motion.css" data-sv-theme><script defer src="/design/site-20261110-motion.js" data-sv-theme></script>', {html:true});}})
+    .on('head', {element(el) {el.append('<link rel="stylesheet" href="/design/site-20261110-simple.css" data-sv-theme><script defer src="/design/site-20261110-simple.js" data-sv-theme></script>', {html:true});}})
     .transform(response);
 }
 
