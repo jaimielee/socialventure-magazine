@@ -2,7 +2,8 @@
 
 Production Worker socialventure-magazine serves socialventure.kr/* and www.socialventure.kr/*.
 The owner explicitly requested removing HANAM business-number login and authorized deployment.
-Current brand deployment: dbc2efdb-e6bb-4833-98ab-8d150949a0a1.
+Current character cleanup deployment: 75a60f3f-aada-4a20-ab13-95afe6051493.
+Previous brand deployment: dbc2efdb-e6bb-4833-98ab-8d150949a0a1.
 Previous homepage deployment: d2d4d255-c80d-403d-8218-4e1603968053.
 Previous motion deployment: 7949d9cd-7095-4b39-9213-cf3e244d495d.
 Previous character deployment: 69845ecf-490c-461e-8744-fa2df6a3178c.

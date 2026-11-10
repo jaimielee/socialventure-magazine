@@ -1,6 +1,6 @@
 import {readFile,writeFile} from 'node:fs/promises';
 const characterAssets={};
-for(const name of ['jemissi-pen-v1.png','jemissi-face-v1.png','jemissi-thinking-v1.png','jemissi-icon-v1.png']){
+for(const name of ['jemissi-pen-v2.png','jemissi-face-v1.png','jemissi-thinking-v1.png','jemissi-icon-v1.png']){
  characterAssets['/character/'+name]={type:'image/png',base64:(await readFile(new URL('../public/character/'+name,import.meta.url))).toString('base64')};
 }
 characterAssets['/favicon.svg']={type:'image/svg+xml',base64:(await readFile(new URL('../public/favicon.svg',import.meta.url))).toString('base64')};

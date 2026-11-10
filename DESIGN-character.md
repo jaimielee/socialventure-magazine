@@ -21,3 +21,5 @@ Only the original hero eyes blink, using an SVG overlay of the unchanged illustr
 The homepage introduction is now only “현장에서 쓰는 제미씨의 기록.” with a 430px character frame (300px mobile). The redundant English headline, kicker and descriptive paragraphs were removed at the owner’s request. Cards, navigation, content and tools remain unchanged. `mastheadMarkup` is shared by Astro and the Worker replacement to keep preserved-asset deployments consistent.
 
 The shared masthead now reads “소셜가 제미씨의 일일” (owner’s exact spelling). The home slogan is “재밌어 보여서 만들고, 쓸모 있어지면 같이 씁니다.” The Worker applies the same masthead to preserved HTML; local Astro mirrors it.
+
+The hero uses jemissi-pen-v2.png. Only the gray residue in the small hair region x146–180, y46–69 was cleaned. Dimensions remain 426×640; all pixels outside this region, including the eyes, are unchanged. Both the resting image and blink overlay use v2. The old v1 file remains for rollback.
