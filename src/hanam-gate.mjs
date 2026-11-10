@@ -30,8 +30,8 @@ export default {
         'Content-Type':characterAsset.type, 'Cache-Control':'public, max-age=86400', 'X-Content-Type-Options':'nosniff'
       }});
     }
-    const designAsset = path === '/design/site-20261110-simple.css' ? [css, 'text/css']
-      : path === '/design/site-20261110-simple.js' ? [js, 'application/javascript'] : null;
+    const designAsset = path === '/design/site-20261110-brand.css' ? [css, 'text/css']
+      : path === '/design/site-20261110-brand.js' ? [js, 'application/javascript'] : null;
     if (designAsset) {
       if (!['GET', 'HEAD'].includes(request.method)) return new Response('Method not allowed', {status:405});
       return new Response(request.method === 'HEAD' ? null : designAsset[0], {headers:{
@@ -60,6 +60,7 @@ function decorate(response, request, path) {
   const page = path.split('/').filter(Boolean)[0] || 'home';
   return new HTMLRewriter()
     .on('html', {element(el) {el.setAttribute('data-sv-design', '20261110'); el.setAttribute('data-sv-page', page);}})
+    .on('body > .min-h-screen > header > a', {element(el) {if(el.getAttribute('href') === '/') el.setInnerContent('소셜가 제미씨의 일일');}})
     .on('main a.group[data-note-modal] h2', {element(el) {if (page === 'home') el.tagName = 'h3';}})
     .on('main > section:first-child', {element(el) {if(page === 'home') el.setInnerContent(mastheadMarkup, {html:true});}})
     .on('a.group[data-note-modal]', {element(el) {el.append(bylineMarkup, {html:true});}})
@@ -68,7 +69,7 @@ function decorate(response, request, path) {
     .on('[data-jemissi]', {element(el) {el.remove();}})
     .on('link[rel="icon"]', {element(el) {el.setAttribute('type', 'image/png');el.setAttribute('sizes', '64x64');el.setAttribute('href', '/character/jemissi-icon-v1.png');}})
     .on('[data-sv-theme]' , {element(el) {el.remove();}})
-    .on('head', {element(el) {el.append('<link rel="stylesheet" href="/design/site-20261110-simple.css" data-sv-theme><script defer src="/design/site-20261110-simple.js" data-sv-theme></script>', {html:true});}})
+    .on('head', {element(el) {el.append('<link rel="stylesheet" href="/design/site-20261110-brand.css" data-sv-theme><script defer src="/design/site-20261110-brand.js" data-sv-theme></script>', {html:true});}})
     .transform(response);
 }
 

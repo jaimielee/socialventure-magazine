@@ -3,4 +3,4 @@ const eye = (x, y, width, height) => `<g transform="translate(${x} ${y}) rotate(
 export const heroMarkup = `<figure class="sv-jemissi-hero" data-jemissi="hero"><span class="sv-jemissi-frame"><img src="/character/jemissi-pen-v1.png" alt="펜을 들고 기록하는 제미씨" width="190" height="300" fetchpriority="high" decoding="async"><svg class="sv-jemissi-blink" viewBox="0 0 427 640" aria-hidden="true" focusable="false" hidden>${eye(146,160,76,36)}${eye(237,140,65,33)}</svg></span></figure>`;
 export const bylineMarkup = '<span class="sv-jemissi-byline" data-jemissi="byline"><img src="/character/jemissi-face-v1.png" alt="" width="32" height="32" loading="lazy" decoding="async"><span>제미씨의 기록</span></span>';
 
-export const mastheadMarkup = `<div class="sv-home-intro"><h1>현장에서 쓰는<br><span class="text-blue">제미씨의 기록.</span></h1></div><div>${heroMarkup}</div>`;
+export const mastheadMarkup = `<div class="sv-home-intro"><h1>재밌어 보여서 만들고,<br><span class="text-blue">쓸모 있어지면 같이 씁니다.</span></h1></div><div>${heroMarkup}</div>`;

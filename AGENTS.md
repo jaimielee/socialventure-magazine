@@ -2,7 +2,8 @@
 
 Production Worker socialventure-magazine serves socialventure.kr/* and www.socialventure.kr/*.
 The owner explicitly requested removing HANAM business-number login and authorized deployment.
-Current homepage deployment: d2d4d255-c80d-403d-8218-4e1603968053.
+Current brand deployment: dbc2efdb-e6bb-4833-98ab-8d150949a0a1.
+Previous homepage deployment: d2d4d255-c80d-403d-8218-4e1603968053.
 Previous motion deployment: 7949d9cd-7095-4b39-9213-cf3e244d495d.
 Previous character deployment: 69845ecf-490c-461e-8744-fa2df6a3178c.
 Previous design deployment: e3b2d37a-4e0f-425a-affc-316d7fd9849a.
@@ -21,7 +22,7 @@ Previous direct-access deployment: 7caac0ef-1a63-44ca-b38c-5708563ffece, superse
 
 ## Design release — 2026-11-10
 
-- Shared theme sources: public/design/site-20261110-simple.css and .js; regenerate src/generated/site-design.mjs with scripts/build-design-module.mjs. Read DESIGN.md before changing the theme.
+- Shared theme sources: public/design/site-20261110-brand.css and .js; regenerate src/generated/site-design.mjs with scripts/build-design-module.mjs. Read DESIGN.md before changing the theme.
 - keep_assets inherits the latest uploaded assets, which may differ from the active deployment. Check content, not only settings.
 - Worker fallback retains access to files found only in immutable version 7caac0ef. Never delete or disable that version URL until the complete original inventory has been migrated.
 - Design checks preserve this editorial/work-tool layout rather than impose full-screen marketing sections.

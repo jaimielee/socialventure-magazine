@@ -10,12 +10,14 @@ Placements:
 - Empty search: thinking pose and '다른 단어로 찾아볼까요?'. It must disappear as soon as results return.
 - Favicon: face PNG at 64px; legacy favicon.svg wraps the same face. Local layout also supplies a 192px touch icon.
 
-Versioned image files are in public/character. The source theme is now public/design/site-20261110-simple.css and .js. Keep the older theme files for previously cached pages. Regenerate src/generated/site-design.mjs through the existing build hook; it embeds character images so release can preserve the remote asset collection.
+Versioned image files are in public/character. The source theme is now public/design/site-20261110-brand.css and .js. Keep the older theme files for previously cached pages. Regenerate src/generated/site-design.mjs through the existing build hook; it embeds character images so release can preserve the remote asset collection.
 
 Worker insertion and client bylines must be idempotent. Keep the current HANAM direct access, localStorage keys, existing document content, historical-file fallback and quotation print styles. Character decorations are hidden on print.
 
 ## Quiet homepage motion
 
-Only the original hero eyes blink, using an SVG overlay of the unchanged illustration. A 220 ms blink occurs at randomized 12–22 second intervals. Scroll, keyboard input, reading modals, hidden tabs, offscreen placement and reduced-motion preferences cancel or pause it. The resting image, other character placements, printing and layout stay static. Theme sources are site-20261110-simple.css and .js.
+Only the original hero eyes blink, using an SVG overlay of the unchanged illustration. A 220 ms blink occurs at randomized 12–22 second intervals. Scroll, keyboard input, reading modals, hidden tabs, offscreen placement and reduced-motion preferences cancel or pause it. The resting image, other character placements, printing and layout stay static. Theme sources are site-20261110-brand.css and .js.
 
 The homepage introduction is now only “현장에서 쓰는 제미씨의 기록.” with a 430px character frame (300px mobile). The redundant English headline, kicker and descriptive paragraphs were removed at the owner’s request. Cards, navigation, content and tools remain unchanged. `mastheadMarkup` is shared by Astro and the Worker replacement to keep preserved-asset deployments consistent.
+
+The shared masthead now reads “소셜가 제미씨의 일일” (owner’s exact spelling). The home slogan is “재밌어 보여서 만들고, 쓸모 있어지면 같이 씁니다.” The Worker applies the same masthead to preserved HTML; local Astro mirrors it.

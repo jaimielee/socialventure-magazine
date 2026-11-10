@@ -7,7 +7,7 @@ Preserve its Pretendard font, blue identity, published text, contact address and
 - Operate: HANAM and quotation editor. Stable placement, 44px controls, explicit feedback, no decorative task animations. Keep all browser storage keys and document print styles.
 - Interaction: one short homepage entrance; hover transforms only on fine pointers; reduced-motion disables movement. Modal focus stays within the dialog and returns to the opener. Clipboard success only after a successful write.
 
-Source of truth: public/design/site-20261110-simple.css and .js (see DESIGN-character.md). `node scripts/build-design-module.mjs` generates src/generated/site-design.mjs for the Worker. The local build includes the same files. Do not edit generated output alone.
+Source of truth: public/design/site-20261110-brand.css and .js (see DESIGN-character.md). `node scripts/build-design-module.mjs` generates src/generated/site-design.mjs for the Worker. The local build includes the same files. Do not edit generated output alone.
 
 The production Worker serves the two design paths and injects them into existing HTML using HTMLRewriter. It preserves all current static assets and excludes the CMS admin page. Source content and HANAM runtime scripts are not replaced. The homepage card heading level changes from h2 to h3. Local Astro and Worker-rendered pages share the same theme.
 

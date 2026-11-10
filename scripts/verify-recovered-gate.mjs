@@ -16,9 +16,9 @@ assert.equal((await worker.fetch(req('/%ZZ'),env)).status,400);
 r=await worker.fetch(req('/hanam/',{headers:{Cookie:'__Host-hanam_session=invalid'}}),env);assert.equal(r.status,200);
 console.log('PASS direct board access without secrets/cookies, aliases, assets, legacy login redirect, HEAD, methods, malformed URL and headers.');
 
-const theme = await worker.fetch(req('/design/site-20261110-simple.css'),env);
+const theme = await worker.fetch(req('/design/site-20261110-brand.css'),env);
 assert.match(theme.headers.get('content-type'),/text\/css/);assert.match(await theme.text(),/prefers-reduced-motion/);
-assert.equal((await worker.fetch(req('/design/site-20261110-simple.js',{method:'POST'}),env)).status,405);
+assert.equal((await worker.fetch(req('/design/site-20261110-brand.js',{method:'POST'}),env)).status,405);
 
 const realFetch = globalThis.fetch;
 let forwarded;
